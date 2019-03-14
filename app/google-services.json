@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "654732368874",
+    "firebase_url": "https://teamer-4f17b.firebaseio.com",
+    "project_id": "teamer-4f17b",
+    "storage_bucket": "teamer-4f17b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654732368874:android:30cb0948062cd103",
+        "android_client_info": {
+          "package_name": "com.example.teamer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654732368874-m54sooc2g7nq3ektsam8593fgahcnojt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.teamer",
+            "certificate_hash": "14aee33b6c66bf21cd0c22c00c08b3b410bc2e44"
+          }
+        },
+        {
+          "client_id": "654732368874-urjbkbhckal5vou2oocfpp5lergqpdhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFhpstEjPeIEYEoQVXw4CQL4-TNLTJfqI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654732368874-urjbkbhckal5vou2oocfpp5lergqpdhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
