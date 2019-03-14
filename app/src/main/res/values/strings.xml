@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Teamer</string>
+
+    <!-- welcome fragment -->
+    <string name="f_welcome_title_tv">Teamer</string>
+    <string name="f_welcome_sign_in_btn">Sign In</string>
+    <string name="f_welcome_sign_up_btn">Sign Up</string>
 </resources>
