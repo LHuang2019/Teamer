@@ -8,14 +8,14 @@
 
     <!-- sign in fragment -->
     <string name="f_sign_in_title_tv">Teamer Sign In</string>
-    <string name="f_sign_in_username_tv">Email: </string>
+    <string name="f_sign_in_email_tv">Email: </string>
     <string name="f_sign_in_password_tv">Password: </string>
     <string name="f_sign_in_btn">Sign In</string>
 
 
     <!-- sign up fragment -->
     <string name="f_sign_up_title_tv">Teamer Sign Up</string>
-    <string name="f_sign_up_username_tv">Email: </string>
+    <string name="f_sign_up_email_tv">Email: </string>
     <string name="f_sign_up_password_tv">Password: </string>
     <string name="f_sign_up_password_confirm_tv">Confirm Password: </string>
     <string name="f_sign_up_btn">Create Account</string>

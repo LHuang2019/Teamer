@@ -32,7 +32,7 @@ class SignInFragment : Fragment() {
 
         viewF = inflater.inflate(R.layout.fragment_sign_in, container, false)
 
-        userNameEt = viewF.findViewById(R.id.f_sign_in_username_et)
+        userNameEt = viewF.findViewById(R.id.f_sign_in_email_et)
         passwordEt = viewF.findViewById(R.id.f_sign_in_password_et)
         signInBtn = viewF.findViewById(R.id.f_sign_in_btn)
 

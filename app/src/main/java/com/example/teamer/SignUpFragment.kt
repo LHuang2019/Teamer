@@ -33,7 +33,7 @@ class SignUpFragment : Fragment() {
 
         viewF = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
-        userNameEt = viewF.findViewById(R.id.f_sign_up_username_et)
+        userNameEt = viewF.findViewById(R.id.f_sign_up_email_et)
         passwordEt = viewF.findViewById(R.id.f_sign_up_password_et)
         passwordConfirmEt = viewF.findViewById(R.id.f_sign_up_password_confirm_et)
         signUpBtn = viewF.findViewById(R.id.f_sign_up_btn)
