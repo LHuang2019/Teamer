@@ -41,8 +41,8 @@ class SignInFragment : Fragment() {
             val password = passwordEt.text.toString()
 
             if (email.isBlank() || password.isBlank()) {
-                val toastMsg = "Please enter both an email and password."
-                val toast = Toast.makeText(viewF.context, toastMsg, Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(viewF.context,
+                    "Please enter both an email and password.", Toast.LENGTH_SHORT)
                 toast.show()
             }
             else {
@@ -53,7 +53,7 @@ class SignInFragment : Fragment() {
         return viewF
     }
 
-    fun signIn(email : String, password : String) {
+    private fun signIn(email : String, password : String) {
         var auth = vm.getAuth()
 
         auth.signInWithEmailAndPassword(email, password)
@@ -62,8 +62,7 @@ class SignInFragment : Fragment() {
                     vm.setCurrentUser(auth.currentUser)
                 }
                 else {
-                    val toastMsg = "Authentication failed."
-                    val toast = Toast.makeText(viewF.context, toastMsg, Toast.LENGTH_SHORT)
+                    val toast = Toast.makeText(viewF.context, "Authentication failed.", Toast.LENGTH_SHORT)
                     toast.show()
                 }
             }

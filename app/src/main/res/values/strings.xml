@@ -17,7 +17,7 @@
     <string name="f_sign_up_title_tv">Teamer Sign Up</string>
     <string name="f_sign_up_username_tv">Email: </string>
     <string name="f_sign_up_password_tv">Password: </string>
-    <string name="f_sign_up_password_repeat_tv">Password (Repeat): </string>
+    <string name="f_sign_up_password_confirm_tv">Confirm Password: </string>
     <string name="f_sign_up_btn">Create Account</string>
 
 </resources>
