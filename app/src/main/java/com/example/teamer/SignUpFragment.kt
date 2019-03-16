@@ -61,7 +61,8 @@ class SignUpFragment : Fragment() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    vm.setCurrentUser(auth.currentUser)
+                    vm.addNewUser(auth.currentUser!!)
+                    vm.setCurrentUser(auth.currentUser!!)
                 }
                 else {
                     val toast = Toast.makeText(viewF.context, "Account creation failed.", Toast.LENGTH_SHORT)

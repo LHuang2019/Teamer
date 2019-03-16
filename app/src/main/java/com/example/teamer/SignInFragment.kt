@@ -59,7 +59,7 @@ class SignInFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    vm.setCurrentUser(auth.currentUser)
+                    vm.setCurrentUser(auth.currentUser!!)
                 }
                 else {
                     val toast = Toast.makeText(viewF.context, "Authentication failed.", Toast.LENGTH_SHORT)
