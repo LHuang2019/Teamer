@@ -21,6 +21,8 @@ class UserDataDao {
         userData["uid"] = user.uid
         userData["username"] = user.username
         userData["email"] = user.email
+        userData["platforms"] = user.platforms
+        userData["games"] = user.games
 
         db.collection(COLLECTION_NAME).document(user.uid).set(userData)
     }

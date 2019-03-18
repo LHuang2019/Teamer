@@ -30,7 +30,9 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
                     currentUserData = UserData(
                         document["uid"].toString(),
                         document["username"].toString(),
-                        document["email"].toString()
+                        document["email"].toString(),
+                        document["platforms"] as ArrayList<String>,
+                        document["games"] as ArrayList<String>
                     )
                 }
             }
@@ -40,6 +42,6 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun addNewUser(user : FirebaseUser) {
-        userDataRepo.insertUser(UserData(user.uid, "", user.email!!))
+        userDataRepo.insertUser(UserData(user.uid, "", user.email!!, ArrayList<String>(), ArrayList<String>()))
     }
 }
