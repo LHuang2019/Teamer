@@ -8,44 +8,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <TextView
-                android:text="TextView"
+                android:text="Username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/f_profile_username_tv" tools:text="Username"
+                android:id="@+id/f_profile_username_tv"
                 android:textSize="40sp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" android:layout_marginTop="78dp"
                 app:layout_constraintTop_toTopOf="parent"/>
         <TextView
-                android:text="TextView"
+                android:text="Gaming Platforms:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView6"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/f_profile_username_tv"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="24sp"
-                tools:text="Gaming Platforms:"/>
+        />
         <TextView
-                android:text="TextView"
+                android:text="Platform List"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7" android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" android:textSize="20sp" tools:text="Platform List"/>
+                android:layout_marginEnd="8dp" android:textSize="20sp"/>
         <TextView
-                android:text="TextView"
+                android:text="Games:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8" android:layout_marginTop="32dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" tools:text="Games:" android:textSize="24sp"/>
+                android:layout_marginEnd="8dp" android:textSize="24sp"/>
         <TextView
-                android:text="TextView"
+                android:text="Games List"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView9" tools:text="Games List"
+                android:id="@+id/textView9"
                 android:textSize="20sp" android:layout_marginTop="24dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"

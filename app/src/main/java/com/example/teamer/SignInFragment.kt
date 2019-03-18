@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 
 class SignInFragment : Fragment() {
 
@@ -60,6 +61,7 @@ class SignInFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     vm.setCurrentUser(auth.currentUser!!)
+                    Navigation.findNavController(viewF).navigate(R.id.action_signInFragment_to_createProfileFragment)
                 }
                 else {
                     val toast = Toast.makeText(viewF.context, "Authentication failed.", Toast.LENGTH_SHORT)
