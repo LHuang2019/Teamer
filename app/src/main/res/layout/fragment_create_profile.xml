@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".CreateProfileFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                android:layout_marginTop="41dp" app:layout_constraintTop_toTopOf="parent" tools:text="Create Profile"
+                android:textSize="36sp"/>
+        <TableLayout
+                android:layout_width="395dp"
+                android:layout_height="317dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:id="@+id/tableLayout">
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/textView2" tools:text="Username: "
+                        android:textSize="20sp"/>
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/editText"/>
+            </TableRow>
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/textView3"
+                        tools:text="Gaming Platforms:" android:textSize="20sp"/>
+            </TableRow>
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                <CheckBox
+                        android:text="PC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/f_PC_checkbox"/>
+                <CheckBox
+                        android:text="PS4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/f_PS4_checkbox"/>
+            </TableRow>
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                <CheckBox
+                        android:text="XBOX ONE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/f_XBOX_ONE_checkbox"/>
+                <CheckBox
+                        android:text="Nintendo Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/f_Switch_checkbox"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/textView4" tools:text="Add Games:"
+                        android:textSize="20sp"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <CheckBox
+                        android:text="CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/checkBox8" tools:text="CS:GO"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <CheckBox
+                        android:text="CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/checkBox9" tools:text="Apex Legends"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <CheckBox
+                        android:text="CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/checkBox10" tools:text="Rocket League"/>
+            </TableRow>
+        </TableLayout>
+        <Button
+                android:text="Done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/f_create_profile_btn" android:layout_marginTop="89dp"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
