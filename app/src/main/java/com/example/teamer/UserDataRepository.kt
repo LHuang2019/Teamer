@@ -14,4 +14,8 @@ class UserDataRepository {
     fun insertUser(user : UserData){
         userDataDao.insertUser(user)
     }
+
+    fun addProfileData(uid: String, username: String, platforms: ArrayList<String>, games: ArrayList<String>) {
+        userDataDao.addProfileData(uid, username, platforms, games)
+    }
 }

@@ -10,7 +10,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     private var auth : FirebaseAuth = FirebaseAuth.getInstance()
     private var currentUser : FirebaseUser? = null
-    private var currentUserData : UserData? = null
+    var currentUserData : UserData? = null
 
     private var userDataRepo : UserDataRepository = UserDataRepository()
 
@@ -43,5 +43,12 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     fun addNewUser(user : FirebaseUser) {
         userDataRepo.insertUser(UserData(user.uid, "", user.email!!, ArrayList<String>(), ArrayList<String>()))
+    }
+
+    fun addProfileData(username: String, platforms: ArrayList<String>, games: ArrayList<String>) {
+        currentUserData?.username = username
+        currentUserData?.platforms = platforms
+        currentUserData?.games = games
+        userDataRepo.addProfileData(currentUser!!.uid, username, platforms, games)
     }
 }

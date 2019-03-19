@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,12 +21,22 @@ private const val ARG_PARAM2 = "param2"
  */
 class ViewProfileFragment : Fragment() {
 
+    private lateinit var vm : TeamerVM
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_profile, container, false)
+        val v = inflater.inflate(R.layout.fragment_view_profile, container, false)
+
+        vm = activity.run {
+            ViewModelProviders.of(this!!).get(TeamerVM::class.java)
+        }
+
+        v.findViewById<TextView>(R.id.f_profile_username_tv).text = vm.currentUserData?.username
+
+        return v
     }
 
 

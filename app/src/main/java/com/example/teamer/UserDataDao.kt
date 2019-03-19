@@ -26,4 +26,12 @@ class UserDataDao {
 
         db.collection(COLLECTION_NAME).document(user.uid).set(userData)
     }
+
+    fun addProfileData(uid: String, username: String, platforms: ArrayList<String>, games: ArrayList<String>) {
+        db.collection(COLLECTION_NAME).document(uid).update(
+            "username", username,
+            "platforms", platforms,
+            "games", games
+        )
+    }
 }
