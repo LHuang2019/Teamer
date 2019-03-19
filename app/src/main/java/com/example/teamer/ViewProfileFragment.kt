@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
+import org.w3c.dom.Text
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +36,29 @@ class ViewProfileFragment : Fragment() {
         }
 
         v.findViewById<TextView>(R.id.f_profile_username_tv).text = vm.currentUserData?.username
+
+        var platform_string = ""
+
+        for (index in vm.currentUserData?.platforms!!.indices) {
+            if (index > 0) {
+                platform_string += ", "
+            }
+            platform_string += vm.currentUserData?.platforms!![index]
+        }
+
+        v.findViewById<TextView>(R.id.platforms_list_tv).text = platform_string
+
+        var games_string = ""
+
+        for (index in vm.currentUserData?.games!!.indices) {
+            if (index > 0) {
+                games_string += ", "
+            }
+            games_string += vm.currentUserData?.games!![index]
+        }
+
+        v.findViewById<TextView>(R.id.games_list_tv).text = games_string
+
 
         return v
     }

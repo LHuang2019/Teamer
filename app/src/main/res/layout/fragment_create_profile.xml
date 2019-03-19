@@ -77,7 +77,7 @@
                 <CheckBox
                         android:text="CS:GO"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/checkBox8"/>
+                        android:layout_height="wrap_content" android:id="@+id/f_CSGO_checkbox"/>
             </TableRow>
             <TableRow
                     android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 <CheckBox
                         android:text="Apex Legends"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/checkBox9"/>
+                        android:layout_height="wrap_content" android:id="@+id/f_apex_legends_checkbox"/>
             </TableRow>
             <TableRow
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 <CheckBox
                         android:text="Rocket League"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/checkBox10"/>
+                        android:layout_height="wrap_content" android:id="@+id/f_rocket_league_checkbox"/>
             </TableRow>
         </TableLayout>
         <Button
