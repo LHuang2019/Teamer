@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 
@@ -49,31 +50,42 @@ class CreateProfileFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_createProfileFragment_to_viewProfileFragment)
         }
 
-        val data = vm.getCurrentUserData().value
+//        val data = vm.getCurrentUserData().value
+        vm.getCurrentUserData().observe(this@CreateProfileFragment, Observer { data ->
+            // if the profile is being edited
+            if (!data?.username?.isEmpty()!!) {
+                v.findViewById<TextView>(R.id.textView).text = "Modify Profile"
+                v.findViewById<EditText>(R.id.username_text_edit).setText(data.username)
+                for (platform in data.platforms) {
+                    when (platform) {
+                        "PC" -> v.findViewById<CheckBox>(R.id.f_PC_checkbox).isChecked = true
+                        "PS4" -> v.findViewById<CheckBox>(R.id.f_PS4_checkbox).isChecked = true
+                        "XBOX ONE" -> v.findViewById<CheckBox>(R.id.f_XBOX_ONE_checkbox).isChecked = true
+                        "Nintendo Switch" -> v.findViewById<CheckBox>(R.id.f_Switch_checkbox).isChecked = true
+                    }
+                }
 
-        // if the profile is being edited
-        if (!data?.username?.isEmpty()!!) {
-            v.findViewById<TextView>(R.id.textView).text = "Modify Profile"
-            v.findViewById<EditText>(R.id.username_text_edit).setText(data.username)
-            for (platform in data.platforms) {
-                when (platform) {
-                    "PC" -> v.findViewById<CheckBox>(R.id.f_PC_checkbox).isChecked = true
-                    "PS4" -> v.findViewById<CheckBox>(R.id.f_PS4_checkbox).isChecked = true
-                    "XBOX ONE" -> v.findViewById<CheckBox>(R.id.f_XBOX_ONE_checkbox).isChecked = true
-                    "Nintendo Switch" -> v.findViewById<CheckBox>(R.id.f_Switch_checkbox).isChecked = true
+                for (game in data.games) {
+                    when (game) {
+                        "CS:GO" -> v.findViewById<CheckBox>(R.id.f_CSGO_checkbox).isChecked = true
+                        "Apex Legends" -> v.findViewById<CheckBox>(R.id.f_apex_legends_checkbox).isChecked = true
+                        "Rocket League" -> v.findViewById<CheckBox>(R.id.f_rocket_league_checkbox).isChecked = true
+                    }
                 }
             }
+            else {
+                v.findViewById<TextView>(R.id.textView).text = "Create Profile"
+                v.findViewById<EditText>(R.id.username_text_edit).setText("")
 
-            for (game in data.games) {
-                when (game) {
-                    "CS:GO" -> v.findViewById<CheckBox>(R.id.f_CSGO_checkbox).isChecked = true
-                    "Apex Legends" -> v.findViewById<CheckBox>(R.id.f_apex_legends_checkbox).isChecked = true
-                    "Rocket League" -> v.findViewById<CheckBox>(R.id.f_rocket_league_checkbox).isChecked = true
-                }
+                v.findViewById<CheckBox>(R.id.f_PC_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_PS4_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_XBOX_ONE_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_Switch_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_CSGO_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_apex_legends_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_rocket_league_checkbox).isChecked = false
             }
-        }
-
-
+        })
 
         // Inflate the layout for this fragment
         return v
