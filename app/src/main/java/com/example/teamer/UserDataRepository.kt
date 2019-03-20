@@ -1,13 +1,12 @@
 package com.example.teamer
 
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
+import androidx.lifecycle.LiveData
 
 class UserDataRepository {
 
     private val userDataDao = UserDataDao()
 
-    fun getUserByUid(uid : String) : Task<DocumentSnapshot> {
+    fun getUserByUid(uid : String) : LiveData<UserData> {
         return userDataDao.getUser(uid)
     }
 
