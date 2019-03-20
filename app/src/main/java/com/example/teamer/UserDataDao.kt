@@ -1,9 +1,6 @@
 package com.example.teamer
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentSnapshot
 
 class UserDataDao {
@@ -14,24 +11,8 @@ class UserDataDao {
         private const val COLLECTION_NAME = "users"
     }
 
-    fun getUser(uid : String) : LiveData<UserData> {
-        lateinit var currentUserData : MutableLiveData<UserData>
-         db.collection(COLLECTION_NAME).document(uid).get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    currentUserData.value = UserData(
-                        document["uid"].toString(),
-                        document["username"].toString(),
-                        document["email"].toString(),
-                        document["platforms"] as ArrayList<String>,
-                        document["games"] as ArrayList<String>
-                    )
-                }
-            }
-            .addOnFailureListener { exception ->
-            }
-
-        return currentUserData
+    fun getUser(uid : String) : Task<DocumentSnapshot> {
+         return db.collection(COLLECTION_NAME).document(uid).get()
     }
 
     fun insertUser(user : UserData) {

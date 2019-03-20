@@ -1,9 +1,9 @@
 package com.example.teamer
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -11,8 +11,10 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     private var auth : FirebaseAuth = FirebaseAuth.getInstance()
     private var currentUser : FirebaseUser? = null
+    private var currentUserData : MutableLiveData<UserData> = MutableLiveData()
 
     private var userDataRepo : UserDataRepository = UserDataRepository()
+
 
     fun getAuth() : FirebaseAuth {
         return auth
@@ -23,8 +25,21 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun getCurrentUserData() : LiveData<UserData> {
-        return userDataRepo.getUserByUid(currentUser!!.uid)
-
+        userDataRepo.getUserByUid(currentUser!!.uid)
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    currentUserData.postValue(UserData(
+                        document["uid"].toString(),
+                        document["username"].toString(),
+                        document["email"].toString(),
+                        document["platforms"] as ArrayList<String>,
+                        document["games"] as ArrayList<String>
+                    ))
+                }
+            }
+            .addOnFailureListener { exception ->
+            }
+        return currentUserData
     }
 
     fun setCurrentUser(user : FirebaseUser) {

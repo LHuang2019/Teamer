@@ -10,11 +10,16 @@
         <action android:id="@+id/action_welcomeFragment_to_signInFragment" app:destination="@id/signInFragment"/>
     </fragment>
     <fragment android:id="@+id/signUpFragment" android:name="com.example.teamer.SignUpFragment"
-              android:label="fragment_sign_up" tools:layout="@layout/fragment_sign_up"/>
+              android:label="fragment_sign_up" tools:layout="@layout/fragment_sign_up">
+        <action android:id="@+id/action_signUpFragment_to_createProfileFragment"
+                app:destination="@id/createProfileFragment"/>
+    </fragment>
     <fragment android:id="@+id/signInFragment" android:name="com.example.teamer.SignInFragment"
               android:label="fragment_sign_in" tools:layout="@layout/fragment_sign_in">
         <action android:id="@+id/action_signInFragment_to_createProfileFragment"
                 app:destination="@id/createProfileFragment"/>
+        <action android:id="@+id/action_signInFragment_to_viewProfileFragment"
+                app:destination="@id/viewProfileFragment"/>
     </fragment>
     <fragment android:id="@+id/createProfileFragment" android:name="com.example.teamer.CreateProfileFragment"
               android:label="fragment_create_profile" tools:layout="@layout/fragment_create_profile">

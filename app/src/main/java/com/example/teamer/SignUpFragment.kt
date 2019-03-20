@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 
 
 class SignUpFragment : Fragment() {
@@ -63,6 +64,7 @@ class SignUpFragment : Fragment() {
                 if (task.isSuccessful) {
                     vm.addNewUser(auth.currentUser!!)
                     vm.setCurrentUser(auth.currentUser!!)
+                    Navigation.findNavController(viewF).navigate(R.id.action_signUpFragment_to_createProfileFragment)
                 }
                 else {
                     val toast = Toast.makeText(viewF.context, "Account creation failed.", Toast.LENGTH_SHORT)

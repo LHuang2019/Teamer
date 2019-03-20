@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 
@@ -61,7 +62,18 @@ class SignInFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     vm.setCurrentUser(auth.currentUser!!)
-                    Navigation.findNavController(viewF).navigate(R.id.action_signInFragment_to_createProfileFragment)
+                    vm.getCurrentUserData().observe(this@SignInFragment, Observer { userData ->
+                        if (userData.username.isEmpty()) {
+                            Navigation.findNavController(viewF).navigate(
+                                R.id.action_signInFragment_to_createProfileFragment
+                            )
+                        }
+                        else {
+                            Navigation.findNavController(viewF).navigate(
+                                R.id.action_signInFragment_to_viewProfileFragment
+                            )
+                        }
+                    })
                 }
                 else {
                     val toast = Toast.makeText(viewF.context, "Authentication failed.", Toast.LENGTH_SHORT)
