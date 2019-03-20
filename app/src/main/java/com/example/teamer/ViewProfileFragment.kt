@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import org.w3c.dom.Text
 
 class ViewProfileFragment : Fragment() {
@@ -51,6 +53,12 @@ class ViewProfileFragment : Fragment() {
 
             v.findViewById<TextView>(R.id.games_list_tv).text = games_string
         })
+
+        v.findViewById<Button>(R.id.edit_profile_btn).setOnClickListener { view ->
+            Navigation.findNavController(v).navigate(
+                R.id.action_viewProfileFragment_to_createProfileFragment
+            )
+        }
 
         return v
     }
