@@ -19,7 +19,11 @@
     <string name="f_sign_up_password_confirm_tv">Confirm Password:</string>
     <string name="f_sign_up_btn">Create Account</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- view profile fragment -->
+    <string name="f_view_profile_username_tv">Username</string>
+    <string name="f_view_profile_platform_title_tv">Gaming Platforms:</string>
+    <string name="f_view_profile_platform_list_tv">Platform list</string>
+    <string name="f_view_profile_game_title_tv">Games:</string>
+    <string name="f_view_profile_game_list_tv">Game list</string>
+    <string name="f_view_profile_edit_profile_btn">Edit Profile</string>
 </resources>

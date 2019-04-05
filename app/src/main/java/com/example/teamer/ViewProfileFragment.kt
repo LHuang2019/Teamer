@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import org.w3c.dom.Text
 
 class ViewProfileFragment : Fragment() {
 
@@ -29,7 +28,7 @@ class ViewProfileFragment : Fragment() {
         }
 
         vm.getCurrentUserData().observe(this@ViewProfileFragment, Observer { userData ->
-            v.findViewById<TextView>(R.id.f_profile_username_tv).text = userData.username
+            v.findViewById<TextView>(R.id.f_view_profile_username_tv).text = userData.username
 
             var platform_string = ""
             for (index in userData.platforms.indices) {
@@ -40,7 +39,7 @@ class ViewProfileFragment : Fragment() {
             }
 
 
-            v.findViewById<TextView>(R.id.platforms_list_tv).text = platform_string
+            v.findViewById<TextView>(R.id.f_view_profile_platform_list_tv).text = platform_string
 
             var games_string = ""
 
@@ -51,10 +50,10 @@ class ViewProfileFragment : Fragment() {
                 games_string += userData.games[index]
             }
 
-            v.findViewById<TextView>(R.id.games_list_tv).text = games_string
+            v.findViewById<TextView>(R.id.f_view_profile_game_list_tv).text = games_string
         })
 
-        v.findViewById<Button>(R.id.edit_profile_btn).setOnClickListener { view ->
+        v.findViewById<Button>(R.id.f_view_profile_edit_profile_btn).setOnClickListener { view ->
             Navigation.findNavController(v).navigate(
                 R.id.action_viewProfileFragment_to_createProfileFragment
             )
