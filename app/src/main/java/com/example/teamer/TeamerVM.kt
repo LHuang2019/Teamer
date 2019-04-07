@@ -50,7 +50,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         userDataRepo.insertUser(UserData(user.uid, "", user.email!!, ArrayList(), ArrayList()))
     }
 
-    fun addProfileData(username: String, platforms: ArrayList<String>, games: ArrayList<String>) {
+    fun addProfileData(username: String, platforms: List<Platform>, games: List<Game>) {
         userDataRepo.addProfileData(currentUser!!.uid, username, platforms, games)
     }
 }
