@@ -30,20 +30,20 @@ class CreateProfileFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_create_profile, container, false)
 
         // navigate to the view profile fragment when done
-        v.findViewById<Button>(R.id.f_create_profile_btn).setOnClickListener { view ->
-            val username = v.findViewById<TextView>(R.id.username_text_edit).text
+        v.findViewById<Button>(R.id.f_create_profile_done_btn).setOnClickListener { view ->
+            val username = v.findViewById<TextView>(R.id.f_create_profile_username_et).text
 
             val platforms = ArrayList<String>()
             val games = ArrayList<String>()
 
-            if (v.findViewById<CheckBox>(R.id.f_PC_checkbox).isChecked) platforms.add("PC")
-            if (v.findViewById<CheckBox>(R.id.f_PS4_checkbox).isChecked) platforms.add("PS4")
-            if (v.findViewById<CheckBox>(R.id.f_XBOX_ONE_checkbox).isChecked) platforms.add("XBOX ONE")
-            if (v.findViewById<CheckBox>(R.id.f_Switch_checkbox).isChecked) platforms.add("Nintendo Switch")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_pc_cb).isChecked) platforms.add("PC")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_ps4_cb).isChecked) platforms.add("PS4")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_xbox_cb).isChecked) platforms.add("XBOX ONE")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_switch_cb).isChecked) platforms.add("Nintendo Switch")
 
-            if (v.findViewById<CheckBox>(R.id.f_CSGO_checkbox).isChecked) games.add("CS:GO")
-            if (v.findViewById<CheckBox>(R.id.f_apex_legends_checkbox).isChecked) games.add("Apex Legends")
-            if (v.findViewById<CheckBox>(R.id.f_rocket_league_checkbox).isChecked) games.add("Rocket League")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_csgo_cb).isChecked) games.add("CS:GO")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked) games.add("Apex Legends")
+            if (v.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked) games.add("Rocket League")
 
             vm.addProfileData(username.toString(), platforms, games)
 
@@ -54,36 +54,36 @@ class CreateProfileFragment : Fragment() {
         vm.getCurrentUserData().observe(this@CreateProfileFragment, Observer { data ->
             // if the profile is being edited
             if (!data?.username?.isEmpty()!!) {
-                v.findViewById<TextView>(R.id.textView).text = "Modify Profile"
-                v.findViewById<EditText>(R.id.username_text_edit).setText(data.username)
+                v.findViewById<TextView>(R.id.f_create_profile_title_tv).text = "Modify Profile"
+                v.findViewById<EditText>(R.id.f_create_profile_username_et).setText(data.username)
                 for (platform in data.platforms) {
                     when (platform) {
-                        "PC" -> v.findViewById<CheckBox>(R.id.f_PC_checkbox).isChecked = true
-                        "PS4" -> v.findViewById<CheckBox>(R.id.f_PS4_checkbox).isChecked = true
-                        "XBOX ONE" -> v.findViewById<CheckBox>(R.id.f_XBOX_ONE_checkbox).isChecked = true
-                        "Nintendo Switch" -> v.findViewById<CheckBox>(R.id.f_Switch_checkbox).isChecked = true
+                        "PC" -> v.findViewById<CheckBox>(R.id.f_create_profile_pc_cb).isChecked = true
+                        "PS4" -> v.findViewById<CheckBox>(R.id.f_create_profile_ps4_cb).isChecked = true
+                        "XBOX ONE" -> v.findViewById<CheckBox>(R.id.f_create_profile_xbox_cb).isChecked = true
+                        "Nintendo Switch" -> v.findViewById<CheckBox>(R.id.f_create_profile_switch_cb).isChecked = true
                     }
                 }
 
                 for (game in data.games) {
                     when (game) {
-                        "CS:GO" -> v.findViewById<CheckBox>(R.id.f_CSGO_checkbox).isChecked = true
-                        "Apex Legends" -> v.findViewById<CheckBox>(R.id.f_apex_legends_checkbox).isChecked = true
-                        "Rocket League" -> v.findViewById<CheckBox>(R.id.f_rocket_league_checkbox).isChecked = true
+                        "CS:GO" -> v.findViewById<CheckBox>(R.id.f_create_profile_csgo_cb).isChecked = true
+                        "Apex Legends" -> v.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked = true
+                        "Rocket League" -> v.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked = true
                     }
                 }
             }
             else {
-                v.findViewById<TextView>(R.id.textView).text = "Create Profile"
-                v.findViewById<EditText>(R.id.username_text_edit).setText("")
+                v.findViewById<TextView>(R.id.f_create_profile_title_tv).text = "Create Profile"
+                v.findViewById<EditText>(R.id.f_create_profile_username_et).setText("")
 
-                v.findViewById<CheckBox>(R.id.f_PC_checkbox).isChecked = false
-                v.findViewById<CheckBox>(R.id.f_PS4_checkbox).isChecked = false
-                v.findViewById<CheckBox>(R.id.f_XBOX_ONE_checkbox).isChecked = false
-                v.findViewById<CheckBox>(R.id.f_Switch_checkbox).isChecked = false
-                v.findViewById<CheckBox>(R.id.f_CSGO_checkbox).isChecked = false
-                v.findViewById<CheckBox>(R.id.f_apex_legends_checkbox).isChecked = false
-                v.findViewById<CheckBox>(R.id.f_rocket_league_checkbox).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_pc_cb).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_ps4_cb).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_xbox_cb).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_switch_cb).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_csgo_cb).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked = false
+                v.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked = false
             }
         })
 

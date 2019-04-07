@@ -26,4 +26,23 @@
     <string name="f_view_profile_game_title_tv">Games:</string>
     <string name="f_view_profile_game_list_tv">Game list</string>
     <string name="f_view_profile_edit_profile_btn">Edit Profile</string>
+
+    <!-- create profile fragment -->
+    <string name="f_create_profile_title_tv">Create Profile</string>
+    <string name="f_create_profile_username_tv">Username:</string>
+    <string name="f_create_profile_platform_tv">Gaming Platforms:</string>
+    <string name="f_create_profile_game_title_tv">Add Games:</string>
+    <string name="f_create_profile_done_btn">Done</string>
+
+    <!-- supported platform -->
+    <string name="gaming_platform_pc">PC</string>
+    <string name="gaming_platform_ps4">PS4</string>
+    <string name="gaming_platform_xboxone">Xbox One</string>
+    <string name="gaming_platform_switch">Nintendo Switch</string>
+
+    <!-- supported games -->
+    <string name="game_csgo">CS:GO</string>
+    <string name="game_apex_legends">Apex Legends</string>
+    <string name="game_rocket_league">Rocket League</string>
+
 </resources>
