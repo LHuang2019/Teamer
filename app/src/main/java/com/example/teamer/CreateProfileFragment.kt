@@ -54,7 +54,7 @@ class CreateProfileFragment : Fragment() {
         vm.getCurrentUserData().observe(this@CreateProfileFragment, Observer { data ->
             // if the profile is being edited
             if (!data?.username?.isEmpty()!!) {
-                viewF.findViewById<TextView>(R.id.f_create_profile_title_tv).text = "Modify Profile"
+                viewF.findViewById<TextView>(R.id.f_create_profile_title_tv).text = getString(R.string.f_create_profile_title_modify_tv)
                 viewF.findViewById<EditText>(R.id.f_create_profile_username_et).setText(data.username)
 
                 for (platform in data.platforms) {
@@ -71,19 +71,6 @@ class CreateProfileFragment : Fragment() {
                     Game.APEX_LEGENDS.title -> viewF.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked = true
                     Game.ROCKET_LEAGUE.title -> viewF.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked = true
                 }
-            }
-            else {
-                viewF.findViewById<TextView>(R.id.f_create_profile_title_tv).text = "Create Profile"
-                viewF.findViewById<EditText>(R.id.f_create_profile_username_et).setText("")
-
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_pc_cb).isChecked = false
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_ps4_cb).isChecked = false
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_xbox_cb).isChecked = false
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_switch_cb).isChecked = false
-
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_csgo_cb).isChecked = false
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked = false
-                viewF.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked = false
             }
         })
 

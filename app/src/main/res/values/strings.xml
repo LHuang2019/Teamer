@@ -29,6 +29,7 @@
 
     <!-- create profile fragment -->
     <string name="f_create_profile_title_tv">Create Profile</string>
+    <string name="f_create_profile_title_modify_tv">Modify Profile</string>
     <string name="f_create_profile_username_tv">Username:</string>
     <string name="f_create_profile_platform_tv">Gaming Platforms:</string>
     <string name="f_create_profile_game_title_tv">Add Games:</string>
