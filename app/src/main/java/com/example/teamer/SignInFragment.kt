@@ -76,7 +76,9 @@ class SignInFragment : Fragment() {
                     })
                 }
                 else {
-                    val toast = Toast.makeText(viewF.context, "Authentication failed.", Toast.LENGTH_SHORT)
+                    val toast = Toast.makeText(viewF.context,
+                        "Authentication failed: " + task.exception?.message,
+                        Toast.LENGTH_SHORT)
                     toast.show()
                 }
             }

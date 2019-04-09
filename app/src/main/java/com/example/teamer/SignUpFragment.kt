@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 
 class SignUpFragment : Fragment() {
@@ -67,7 +68,8 @@ class SignUpFragment : Fragment() {
                     Navigation.findNavController(viewF).navigate(R.id.action_signUpFragment_to_createProfileFragment)
                 }
                 else {
-                    val toast = Toast.makeText(viewF.context, "Account creation failed.", Toast.LENGTH_SHORT)
+                    val toast = Toast.makeText(viewF.context,
+                        "Account creation failed: " + task.exception?.message, Toast.LENGTH_LONG)
                     toast.show()
                 }
             }
