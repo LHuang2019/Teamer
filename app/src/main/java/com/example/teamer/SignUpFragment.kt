@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 
 class SignUpFragment : Fragment() {
@@ -43,14 +42,17 @@ class SignUpFragment : Fragment() {
         signUpBtn.setOnClickListener {
             val email = userNameEt.text.toString()
             val password = passwordEt.text.toString()
+            val passwordRepeat = passwordConfirmEt.text.toString()
 
-            if (email.isBlank() || password.isBlank()) {
-                val toast = Toast.makeText(viewF.context,
-                    "Please enter both an email and password.", Toast.LENGTH_SHORT)
-                toast.show()
-            }
-            else {
-                signUp(email, password)
+            when {
+                email.isBlank() || password.isBlank() -> {
+                    val toast = Toast.makeText(viewF.context,
+                        "Please enter both an email and password.", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+                passwordRepeat.isBlank() -> passwordConfirmEt.error = "Please confirm your password."
+                passwordRepeat != password -> passwordConfirmEt.error = "Password does not match."
+                else -> signUp(email, password)
             }
         }
 
@@ -58,7 +60,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun signUp(email : String, password : String) {
-        var auth = vm.getAuth()
+        val auth = vm.getAuth()
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
