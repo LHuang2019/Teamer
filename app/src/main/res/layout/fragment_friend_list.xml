@@ -3,7 +3,7 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   tools:context=".FriendListFragment">
+                                                   tools:context=".view.FriendListFragment">
     <Button
             android:text="@string/f_friend_list_discover_btn"
             android:layout_width="wrap_content"

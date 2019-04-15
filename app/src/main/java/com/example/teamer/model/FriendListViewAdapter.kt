@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.model
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.teamer.R
+import com.example.teamer.data.UserData
 
 class FriendListViewAdapter internal constructor(context : Context) :
     RecyclerView.Adapter<FriendListViewAdapter.FriendListViewHolder>() {

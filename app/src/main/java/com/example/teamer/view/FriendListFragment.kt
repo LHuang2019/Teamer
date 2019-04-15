@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.view
 
 
 import android.os.Bundle
@@ -10,6 +10,9 @@ import android.widget.Button
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.teamer.MainActivity
+import com.example.teamer.R
+import com.example.teamer.model.FriendListViewAdapter
 
 class FriendListFragment : Fragment() {
 
@@ -33,7 +36,8 @@ class FriendListFragment : Fragment() {
 
         recyclerView = viewF.findViewById(R.id.friendlist_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        val viewAdapter = FriendListViewAdapter(activity as MainActivity)
+        val viewAdapter =
+            FriendListViewAdapter(activity as MainActivity)
         recyclerView.adapter = viewAdapter
 
         return viewF

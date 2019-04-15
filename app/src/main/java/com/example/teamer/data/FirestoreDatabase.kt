@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.data
 
 import com.google.firebase.firestore.FirebaseFirestore
 

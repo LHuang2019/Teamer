@@ -1,5 +1,7 @@
-package com.example.teamer
+package com.example.teamer.data
 
+import com.example.teamer.misc.Game
+import com.example.teamer.misc.Platform
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 

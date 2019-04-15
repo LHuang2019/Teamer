@@ -1,9 +1,13 @@
-package com.example.teamer
+package com.example.teamer.model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.teamer.data.UserData
+import com.example.teamer.data.UserDataRepository
+import com.example.teamer.misc.Game
+import com.example.teamer.misc.Platform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -28,13 +32,15 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         userDataRepo.getUserByUid(currentUser!!.uid)
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    currentUserData.postValue(UserData(
-                        document["uid"].toString(),
-                        document["username"].toString(),
-                        document["email"].toString(),
-                        document["platforms"] as ArrayList<String>,
-                        document["games"] as ArrayList<String>
-                    ))
+                    currentUserData.postValue(
+                        UserData(
+                            document["uid"].toString(),
+                            document["username"].toString(),
+                            document["email"].toString(),
+                            document["platforms"] as ArrayList<String>,
+                            document["games"] as ArrayList<String>
+                        )
+                    )
                 }
             }
             .addOnFailureListener { exception ->

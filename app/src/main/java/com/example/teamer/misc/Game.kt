@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.misc
 
 enum class Game(val title : String) {
     CSGO("CS:GO"),

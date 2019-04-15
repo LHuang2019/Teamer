@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.view
 
 
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
+import com.example.teamer.R
 
 
 class WelcomeFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.misc
 
 enum class Platform(val title : String) {
     PC("PC"),

@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.data
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot

@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.data
 
 data class UserData(
     var uid : String,

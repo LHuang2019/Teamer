@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.view
 
 
 import android.os.Bundle
@@ -13,6 +13,10 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.teamer.misc.Game
+import com.example.teamer.misc.Platform
+import com.example.teamer.R
+import com.example.teamer.model.TeamerVM
 import java.util.*
 
 class CreateProfileFragment : Fragment() {
@@ -37,14 +41,26 @@ class CreateProfileFragment : Fragment() {
             val platforms = LinkedList<Platform>()
             val games = LinkedList<Game>()
 
-            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_pc_cb).isChecked) platforms.add(Platform.PC)
-            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_ps4_cb).isChecked) platforms.add(Platform.PS4)
-            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_xbox_cb).isChecked) platforms.add(Platform.XBOX_ONE)
-            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_switch_cb).isChecked) platforms.add(Platform.SWITCH)
+            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_pc_cb).isChecked) platforms.add(
+                Platform.PC
+            )
+            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_ps4_cb).isChecked) platforms.add(
+                Platform.PS4
+            )
+            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_xbox_cb).isChecked) platforms.add(
+                Platform.XBOX_ONE
+            )
+            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_switch_cb).isChecked) platforms.add(
+                Platform.SWITCH
+            )
 
             if (viewF.findViewById<CheckBox>(R.id.f_create_profile_csgo_cb).isChecked) games.add(Game.CSGO)
-            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked) games.add(Game.APEX_LEGENDS)
-            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked) games.add(Game.ROCKET_LEAGUE)
+            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_apex_legends_cb).isChecked) games.add(
+                Game.APEX_LEGENDS
+            )
+            if (viewF.findViewById<CheckBox>(R.id.f_create_profile_rocket_league_cb).isChecked) games.add(
+                Game.ROCKET_LEAGUE
+            )
 
             vm.addProfileData(username.toString(), platforms, games)
 

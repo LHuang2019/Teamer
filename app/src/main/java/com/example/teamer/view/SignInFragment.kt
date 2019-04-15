@@ -1,4 +1,4 @@
-package com.example.teamer
+package com.example.teamer.view
 
 
 import android.os.Bundle
@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.teamer.R
+import com.example.teamer.model.TeamerVM
 
 class SignInFragment : Fragment() {
 

@@ -2,6 +2,7 @@ package com.example.teamer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.teamer.R
 
 class MainActivity : AppCompatActivity() {
 
