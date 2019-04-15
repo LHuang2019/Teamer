@@ -18,8 +18,7 @@
               android:label="fragment_sign_in" tools:layout="@layout/fragment_sign_in">
         <action android:id="@+id/action_signInFragment_to_createProfileFragment"
                 app:destination="@id/createProfileFragment"/>
-        <action android:id="@+id/action_signInFragment_to_viewProfileFragment"
-                app:destination="@id/viewProfileFragment"/>
+        <action android:id="@+id/action_signInFragment_to_friendListFragment" app:destination="@id/friendListFragment"/>
     </fragment>
     <fragment android:id="@+id/createProfileFragment" android:name="com.example.teamer.CreateProfileFragment"
               android:label="fragment_create_profile" tools:layout="@layout/fragment_create_profile">
@@ -30,5 +29,12 @@
               android:label="fragment_view_profile" tools:layout="@layout/fragment_view_profile">
         <action android:id="@+id/action_viewProfileFragment_to_createProfileFragment"
                 app:destination="@id/createProfileFragment"/>
+        <action android:id="@+id/action_viewProfileFragment_to_friendListFragment"
+                app:destination="@id/friendListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/friendListFragment" android:name="com.example.teamer.FriendListFragment"
+              android:label="fragment_friend_list" tools:layout="@layout/fragment_friend_list">
+        <action android:id="@+id/action_friendListFragment_to_viewProfileFragment"
+                app:destination="@id/viewProfileFragment"/>
     </fragment>
 </navigation>

@@ -35,6 +35,11 @@
     <string name="f_create_profile_game_title_tv">Add Games:</string>
     <string name="f_create_profile_done_btn">Done</string>
 
+    <!-- friend list fragment -->
+    <string name="f_friend_list_discover_btn">Discover</string>
+    <string name="f_friend_list_profile_btn">Profile</string>
+    <string name="recyleview_friend_name_tv">placeholder</string>
+
     <!-- supported platform -->
     <string name="gaming_platform_pc">PC</string>
     <string name="gaming_platform_ps4">PS4</string>
@@ -45,5 +50,6 @@
     <string name="game_csgo">CS:GO</string>
     <string name="game_apex_legends">Apex Legends</string>
     <string name="game_rocket_league">Rocket League</string>
+
 
 </resources>

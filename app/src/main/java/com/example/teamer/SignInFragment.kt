@@ -70,7 +70,7 @@ class SignInFragment : Fragment() {
                         }
                         else {
                             Navigation.findNavController(viewF).navigate(
-                                R.id.action_signInFragment_to_viewProfileFragment
+                                R.id.action_signInFragment_to_friendListFragment
                             )
                         }
                     })
