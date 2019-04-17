@@ -16,14 +16,7 @@ class UserDataDao {
     }
 
     fun insertUser(user : UserData) {
-        val userData = HashMap<String, Any>()
-        userData["uid"] = user.uid
-        userData["username"] = user.username
-        userData["email"] = user.email
-        userData["platforms"] = user.platforms
-        userData["games"] = user.games
-
-        db.collection(COLLECTION_NAME).document(user.uid).set(userData)
+        db.collection(COLLECTION_NAME).document(user.uid).set(user)
     }
 
     fun addProfileData(uid: String, username: String, platforms: List<String>, games: List<String>) {

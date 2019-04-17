@@ -32,19 +32,10 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         userDataRepo.getUserByUid(currentUser!!.uid)
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    currentUserData.postValue(
-                        UserData(
-                            document["uid"].toString(),
-                            document["username"].toString(),
-                            document["email"].toString(),
-                            document["platforms"] as ArrayList<String>,
-                            document["games"] as ArrayList<String>
-                        )
-                    )
+                    currentUserData.postValue(document.toObject(UserData::class.java))
                 }
             }
-            .addOnFailureListener { exception ->
-            }
+            .addOnFailureListener { }
         return currentUserData
     }
 
