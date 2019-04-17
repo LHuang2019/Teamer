@@ -5,7 +5,8 @@ data class UserData(
     var username : String,
     var email : String,
     var platforms : List<String>,
-    var games : List<String>
+    var games : List<String>,
+    var friendList : List<UserData>
 ) {
-    constructor() : this("", "", "", emptyList<String>(), emptyList<String>())
+    constructor() : this("", "", "", emptyList(), emptyList(), emptyList())
 }

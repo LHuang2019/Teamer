@@ -21,7 +21,7 @@ class UserDataRepository {
         userDataDao.addProfileData(uid,
             username,
             platforms.map { platform -> platform.title },
-            games.map {game -> game.title}
+            games.map { game -> game.title }
         )
     }
 }

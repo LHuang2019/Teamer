@@ -7,14 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamer.MainActivity
 import com.example.teamer.R
 import com.example.teamer.model.FriendListViewAdapter
+import com.example.teamer.model.TeamerVM
 
 class FriendListFragment : Fragment() {
+
+    private lateinit var vm : TeamerVM
 
     private lateinit var viewF : View
     private lateinit var recyclerView : RecyclerView
@@ -25,6 +30,11 @@ class FriendListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        vm = activity.run {
+            ViewModelProviders.of(this!!).get(TeamerVM::class.java)
+        }
+
         viewF =  inflater.inflate(R.layout.fragment_friend_list, container, false)
 
         profileBtn = viewF.findViewById(R.id.f_friend_list_profile_btn)
@@ -39,6 +49,10 @@ class FriendListFragment : Fragment() {
         val viewAdapter =
             FriendListViewAdapter(activity as MainActivity)
         recyclerView.adapter = viewAdapter
+
+        vm.getCurrentUserData().observe(this@FriendListFragment, Observer { userData ->
+            userData.friendList.let { viewAdapter.setFriendList(it) }
+        })
 
         return viewF
     }
