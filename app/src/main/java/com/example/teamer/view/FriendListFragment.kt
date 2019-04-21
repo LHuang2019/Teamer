@@ -25,6 +25,7 @@ class FriendListFragment : Fragment() {
     private lateinit var recyclerView : RecyclerView
 
     private lateinit var profileBtn : Button
+    private lateinit var discoverBtn : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +38,17 @@ class FriendListFragment : Fragment() {
 
         viewF =  inflater.inflate(R.layout.fragment_friend_list, container, false)
 
-        profileBtn = viewF.findViewById(R.id.f_friend_list_profile_btn)
+        profileBtn = viewF.findViewById<Button>(R.id.f_friend_list_profile_btn)
         profileBtn.setOnClickListener {
             Navigation.findNavController(viewF).navigate(
                 R.id.action_friendListFragment_to_viewProfileFragment
+            )
+        }
+
+        discoverBtn = viewF.findViewById(R.id.f_friend_list_discover_btn)
+        discoverBtn.setOnClickListener {
+            Navigation.findNavController(viewF).navigate(
+                R.id.action_friendListFragment_to_discoverFragment
             )
         }
 

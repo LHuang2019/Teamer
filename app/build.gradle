@@ -50,4 +50,7 @@ dependencies {
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //tinder card view
+    implementation "com.yuyakaido.android:card-stack-view:2.3.2"
 }

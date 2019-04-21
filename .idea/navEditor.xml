@@ -13,7 +13,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="434" />
+                            <option name="x" value="410" />
                             <option name="y" value="285" />
                           </Point>
                         </option>
@@ -29,13 +29,46 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="discoverFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-273" />
+                            <option name="y" value="86" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="friendListFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-55" />
+                            <option name="y" value="289" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_friendListFragment_to_viewProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="signInFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="170" />
-                            <option name="y" value="294" />
+                            <option name="x" value="172" />
+                            <option name="y" value="276" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -45,7 +78,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_signInFragment_to_viewProfileFragment">
+                            <entry key="action_signInFragment_to_friendListFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -60,8 +93,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="358" />
-                            <option name="y" value="-63" />
+                            <option name="x" value="345" />
+                            <option name="y" value="-76" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -81,13 +114,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="664" />
-                            <option name="y" value="95" />
+                            <option name="x" value="631" />
+                            <option name="y" value="16" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_viewProfileFragment_to_createProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_viewProfileFragment_to_friendListFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -102,8 +140,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="54" />
+                            <option name="x" value="-54" />
+                            <option name="y" value="-83" />
                           </Point>
                         </option>
                         <option name="myPositions">

@@ -36,5 +36,8 @@
               android:label="fragment_friend_list" tools:layout="@layout/fragment_friend_list">
         <action android:id="@+id/action_friendListFragment_to_viewProfileFragment"
                 app:destination="@id/viewProfileFragment"/>
+        <action android:id="@+id/action_friendListFragment_to_discoverFragment" app:destination="@id/discoverFragment"/>
     </fragment>
+    <fragment android:id="@+id/discoverFragment" android:name="com.example.teamer.view.DiscoverFragment"
+              android:label="fragment_discover" tools:layout="@layout/fragment_discover"/>
 </navigation>
