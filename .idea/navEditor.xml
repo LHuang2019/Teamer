@@ -52,6 +52,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_friendListFragment_to_discoverFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_friendListFragment_to_viewProfileFragment">
                               <value>
                                 <LayoutPositions />

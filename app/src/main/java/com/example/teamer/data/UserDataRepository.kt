@@ -4,6 +4,7 @@ import com.example.teamer.misc.Game
 import com.example.teamer.misc.Platform
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 
 class UserDataRepository {
 
@@ -23,5 +24,9 @@ class UserDataRepository {
             platforms.map { platform -> platform.title },
             games.map { game -> game.title }
         )
+    }
+
+    fun getDiscoverProfiles(): Task<QuerySnapshot> {
+        return userDataDao.getDiscoverProfiles()
     }
 }

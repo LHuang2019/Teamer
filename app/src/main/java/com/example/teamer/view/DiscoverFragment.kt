@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.teamer.R
@@ -54,13 +55,13 @@ class DiscoverFragment : Fragment() {
         (cardStackView.layoutManager as CardStackLayoutManager).setCanScrollVertical(true)
         (cardStackView.layoutManager as CardStackLayoutManager).setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
 
-        cardStackView.adapter = CardStackAdapter(listOf(vm.getCurrentUserData().value,
-            vm.getCurrentUserData().value,
-            vm.getCurrentUserData().value,
-            vm.getCurrentUserData().value,
-            vm.getCurrentUserData().value,
-            vm.getCurrentUserData().value,
-            vm.getCurrentUserData().value) as List<UserData>)
+
+
+        vm.getDiscoverProfilesData()
+
+        vm.getDiscoverProfilesData().observe(this@DiscoverFragment, Observer { discoverProfileData ->
+            cardStackView.adapter = CardStackAdapter(discoverProfileData as List<UserData>)
+        })
 
         // Inflate the layout for this fragment
         return viewF

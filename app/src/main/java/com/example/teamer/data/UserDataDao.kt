@@ -2,6 +2,7 @@ package com.example.teamer.data
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 
 class UserDataDao {
 
@@ -25,5 +26,10 @@ class UserDataDao {
             "platforms", platforms,
             "games", games
         )
+    }
+
+    fun getDiscoverProfiles(): Task<QuerySnapshot> {
+        // get 3 user profiles in the DB
+        return db.collection(COLLECTION_NAME).limit(3).get()
     }
 }

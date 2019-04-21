@@ -17,6 +17,8 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     private var currentUser : FirebaseUser? = null
     private var currentUserData : MutableLiveData<UserData> = MutableLiveData()
 
+    private var discoverProfileData : MutableLiveData<ArrayList<UserData>> = MutableLiveData()
+
     private var userDataRepo : UserDataRepository = UserDataRepository()
 
 
@@ -49,5 +51,24 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     fun addProfileData(username: String, platforms: List<Platform>, games: List<Game>) {
         userDataRepo.addProfileData(currentUser!!.uid, username, platforms, games)
+    }
+
+    fun getDiscoverProfilesData() : LiveData<ArrayList<UserData>> {
+        val discoverProfiles = ArrayList<UserData>()
+
+        userDataRepo.getDiscoverProfiles()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val data = document.toObject(UserData::class.java)
+                    if (data.uid != currentUserData.value?.uid) {
+                        discoverProfiles.add(data)
+                    }
+                }
+
+                discoverProfileData.postValue(discoverProfiles)
+            }
+            .addOnFailureListener { }
+
+        return discoverProfileData
     }
 }

@@ -22,6 +22,10 @@ class CardStackAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val profile = profiles[position]
         holder.username.text = profile.username
+
+        holder.platformList.text = profile.platforms.joinToString { platform -> platform }
+        holder.gamesList.text = profile.games.joinToString { game -> game }
+
     }
 
     override fun getItemCount(): Int {
@@ -30,6 +34,8 @@ class CardStackAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val username: TextView = view.findViewById(R.id.f_view_profile_username_tv)
+        val platformList: TextView = view.findViewById(R.id.f_view_profile_platform_list_tv)
+        val gamesList: TextView = view.findViewById(R.id.f_view_profile_game_list_tv)
     }
 
 }
