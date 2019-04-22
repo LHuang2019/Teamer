@@ -1,9 +1,9 @@
-package com.example.teamer;
+package com.example.teamer.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.Service;
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Binder
@@ -12,24 +12,22 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.google.firebase.database.*
+import com.example.teamer.R
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
 class MessagingService: Service() {
 
-    inner class MyBinder: Binder(){
-        fun getService():MessagingService{
+    inner class ServiceBinder: Binder(){
+        fun getService(): MessagingService {
             return this@MessagingService
         }
     }
 
-    private val iBinder = MyBinder()
+    private val serviceBinder = ServiceBinder()
 
     override fun onBind(intent: Intent?): IBinder {
-        Log.w("test", "Service bound")
-
         createNotificationChannel()
 
         // TODO: clear pending friend requests when notification is tapped
@@ -54,7 +52,7 @@ class MessagingService: Service() {
                 }
             })
 
-        return iBinder
+        return serviceBinder
     }
 
     val CHANNEL_ID = "friend_request_channel"
@@ -97,10 +95,6 @@ class MessagingService: Service() {
             notify(notificationId, builder.build())
         }
         notificationId++
-    }
-
-    override fun onCreate() {
-        super.onCreate()
     }
 
     fun sendFriendRequest(recipient_id: String, sender_id: String) {

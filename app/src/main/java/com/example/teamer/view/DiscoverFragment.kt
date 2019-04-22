@@ -2,7 +2,6 @@ package com.example.teamer.view
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +15,6 @@ import com.example.teamer.model.CardStackAdapter
 import com.example.teamer.model.TeamerVM
 import com.yuyakaido.android.cardstackview.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class DiscoverFragment : Fragment() {
 
     private lateinit var vm : TeamerVM
@@ -39,8 +29,7 @@ class DiscoverFragment : Fragment() {
 
         override fun onCardSwiped(direction: Direction?) {
             if (direction == Direction.Right) {
-                Log.d("CardStackView", "onCardSwiped: p = ${vm.discoverProfileData.value?.get(manager.topPosition-1)}, d = $direction")
-                vm.sendFriendRequest(vm.discoverProfileData.value?.get(manager.topPosition-1)?.uid!!)
+                vm.sendFriendRequest(vm.discoverProfileData.value?.get(manager.topPosition - 1)?.uid!!)
             }
         }
 
@@ -52,7 +41,6 @@ class DiscoverFragment : Fragment() {
 
         override fun onCardRewound() {
         }
-
     }
 
     override fun onCreateView(
@@ -70,7 +58,6 @@ class DiscoverFragment : Fragment() {
         val cardStackView = viewF.findViewById<CardStackView>(R.id.card_stack_view)
 
         // set parameters
-
         manager.setStackFrom(StackFrom.None)
         manager.setVisibleCount(1)
         manager.setTranslationInterval(8.0f)
@@ -84,16 +71,10 @@ class DiscoverFragment : Fragment() {
 
         cardStackView.layoutManager = manager
 
-        vm.updateDiscoverProfilesData()
-
         vm.updateDiscoverProfilesData().observe(this@DiscoverFragment, Observer { discoverProfileData ->
             cardStackView.adapter = CardStackAdapter(discoverProfileData as List<UserData>)
         })
 
-
-
-
-        // Inflate the layout for this fragment
         return viewF
     }
 

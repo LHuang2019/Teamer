@@ -1,11 +1,9 @@
 package com.example.teamer.model
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamer.R
 import com.example.teamer.data.UserData
@@ -25,7 +23,6 @@ class CardStackAdapter(
 
         holder.platformList.text = profile.platforms.joinToString { platform -> platform }
         holder.gamesList.text = profile.games.joinToString { game -> game }
-
     }
 
     override fun getItemCount(): Int {
@@ -37,5 +34,4 @@ class CardStackAdapter(
         val platformList: TextView = view.findViewById(R.id.f_view_profile_platform_list_tv)
         val gamesList: TextView = view.findViewById(R.id.f_view_profile_game_list_tv)
     }
-
 }

@@ -38,7 +38,7 @@ class FriendListFragment : Fragment() {
 
         viewF =  inflater.inflate(R.layout.fragment_friend_list, container, false)
 
-        profileBtn = viewF.findViewById<Button>(R.id.f_friend_list_profile_btn)
+        profileBtn = viewF.findViewById(R.id.f_friend_list_profile_btn)
         profileBtn.setOnClickListener {
             Navigation.findNavController(viewF).navigate(
                 R.id.action_friendListFragment_to_viewProfileFragment

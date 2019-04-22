@@ -58,7 +58,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun signIn(email : String, password : String) {
-        var auth = vm.getAuth()
+        val auth = vm.getAuth()
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

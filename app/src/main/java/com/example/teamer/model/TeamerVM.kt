@@ -7,7 +7,7 @@ import android.os.IBinder
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.teamer.MessagingService
+import com.example.teamer.service.MessagingService
 import com.example.teamer.data.UserData
 import com.example.teamer.data.UserDataRepository
 import com.example.teamer.misc.Game
@@ -26,19 +26,17 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     private var userDataRepo : UserDataRepository = UserDataRepository()
 
     // service variables
-    var messagingService: MessagingService? = null
-    var isInitialized = false
+    private lateinit var messagingService: MessagingService
     var isBound = false
 
     private val messagingServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
-            val binder = iBinder as MessagingService.MyBinder
+            val binder = iBinder as MessagingService.ServiceBinder
             messagingService = binder.getService()
             isBound = true
         }
 
         override fun onServiceDisconnected(componentName: ComponentName) {
-            messagingService = null
             isBound = false
         }
     }
@@ -46,20 +44,13 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     fun bindMessagingService(activity: Activity, context: Context) {
         if (!isBound) {
             val serviceIntent = Intent(Intent(context, MessagingService::class.java))
-            serviceIntent.putExtra("user_uid", currentUserData.value?.uid);
+            serviceIntent.putExtra("user_uid", currentUserData.value?.uid)
             activity.bindService(serviceIntent, messagingServiceConnection, Context.BIND_AUTO_CREATE)
         }
-//        activity?.registerReceiver(musicCompletionReceiver, IntentFilter(MusicService.COMPLETE_INTENT))
-//        activity?.registerReceiver(musicCompletionReceiver, IntentFilter(MusicService.START_INTENT))
     }
-
 
     fun getAuth() : FirebaseAuth {
         return auth
-    }
-
-    fun getCurrentUser() : FirebaseUser? {
-        return currentUser
     }
 
     fun getCurrentUserData() : LiveData<UserData> {
@@ -105,6 +96,6 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun sendFriendRequest(recipient_id: String) {
-        messagingService?.sendFriendRequest(recipient_id, currentUserData.value?.uid!!)
+        messagingService.sendFriendRequest(recipient_id, currentUserData.value?.uid!!)
     }
 }
