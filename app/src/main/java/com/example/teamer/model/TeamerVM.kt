@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.content.*
 import android.os.IBinder
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -31,7 +30,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     var isInitialized = false
     var isBound = false
 
-    private val musicServiceConnection = object : ServiceConnection {
+    private val messagingServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
             val binder = iBinder as MessagingService.MyBinder
             messagingService = binder.getService()
@@ -46,7 +45,9 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     fun bindMessagingService(activity: Activity, context: Context) {
         if (!isBound) {
-            activity.bindService(Intent(context, MessagingService::class.java), musicServiceConnection, Context.BIND_AUTO_CREATE)
+            val serviceIntent = Intent(Intent(context, MessagingService::class.java))
+            serviceIntent.putExtra("user_uid", currentUserData.value?.uid);
+            activity.bindService(serviceIntent, messagingServiceConnection, Context.BIND_AUTO_CREATE)
         }
 //        activity?.registerReceiver(musicCompletionReceiver, IntentFilter(MusicService.COMPLETE_INTENT))
 //        activity?.registerReceiver(musicCompletionReceiver, IntentFilter(MusicService.START_INTENT))
