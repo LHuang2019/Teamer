@@ -37,8 +37,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-firestore:18.2.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
+    androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
@@ -53,4 +53,7 @@ dependencies {
 
     //tinder card view
     implementation "com.yuyakaido.android:card-stack-view:2.3.2"
+
+    // firebase cloud messaging
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
 }

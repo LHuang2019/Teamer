@@ -2,6 +2,7 @@ package com.example.teamer.view
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,32 @@ private const val ARG_PARAM2 = "param2"
 class DiscoverFragment : Fragment() {
 
     private lateinit var vm : TeamerVM
+    private val manager by lazy { CardStackLayoutManager(context, MyCardStackListener()) }
+
+    inner class MyCardStackListener: CardStackListener {
+        override fun onCardDisappeared(view: View?, position: Int) {
+        }
+
+        override fun onCardDragging(direction: Direction?, ratio: Float) {
+        }
+
+        override fun onCardSwiped(direction: Direction?) {
+            if (direction == Direction.Right) {
+                Log.d("CardStackView", "onCardSwiped: p = ${vm.discoverProfileData.value?.get(manager.topPosition-1)}, d = $direction")
+                vm.sendFriendRequest(vm.discoverProfileData.value?.get(manager.topPosition-1)?.uid!!)
+            }
+        }
+
+        override fun onCardCanceled() {
+        }
+
+        override fun onCardAppeared(view: View?, position: Int) {
+        }
+
+        override fun onCardRewound() {
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,25 +70,28 @@ class DiscoverFragment : Fragment() {
         val cardStackView = viewF.findViewById<CardStackView>(R.id.card_stack_view)
 
         // set parameters
-        cardStackView.layoutManager = CardStackLayoutManager(context)
-        (cardStackView.layoutManager as CardStackLayoutManager).setStackFrom(StackFrom.None)
-        (cardStackView.layoutManager as CardStackLayoutManager).setVisibleCount(1)
-        (cardStackView.layoutManager as CardStackLayoutManager).setTranslationInterval(8.0f)
-        (cardStackView.layoutManager as CardStackLayoutManager).setScaleInterval(0.95f)
-        (cardStackView.layoutManager as CardStackLayoutManager).setSwipeThreshold(0.3f)
-        (cardStackView.layoutManager as CardStackLayoutManager).setMaxDegree(20.0f)
-        (cardStackView.layoutManager as CardStackLayoutManager).setDirections(Direction.HORIZONTAL)
-        (cardStackView.layoutManager as CardStackLayoutManager).setCanScrollHorizontal(true)
-        (cardStackView.layoutManager as CardStackLayoutManager).setCanScrollVertical(true)
-        (cardStackView.layoutManager as CardStackLayoutManager).setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
 
+        manager.setStackFrom(StackFrom.None)
+        manager.setVisibleCount(1)
+        manager.setTranslationInterval(8.0f)
+        manager.setScaleInterval(0.95f)
+        manager.setSwipeThreshold(0.3f)
+        manager.setMaxDegree(20.0f)
+        manager.setDirections(Direction.HORIZONTAL)
+        manager.setCanScrollHorizontal(true)
+        manager.setCanScrollVertical(true)
+        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
 
+        cardStackView.layoutManager = manager
 
-        vm.getDiscoverProfilesData()
+        vm.updateDiscoverProfilesData()
 
-        vm.getDiscoverProfilesData().observe(this@DiscoverFragment, Observer { discoverProfileData ->
+        vm.updateDiscoverProfilesData().observe(this@DiscoverFragment, Observer { discoverProfileData ->
             cardStackView.adapter = CardStackAdapter(discoverProfileData as List<UserData>)
         })
+
+
+
 
         // Inflate the layout for this fragment
         return viewF
