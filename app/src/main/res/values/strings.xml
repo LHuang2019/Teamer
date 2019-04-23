@@ -41,6 +41,11 @@
     <string name="f_friend_list_logout_btn">Logout</string>
     <string name="recyleview_friend_name_tv">placeholder</string>
 
+    <!-- friend request response -->
+    <string name="a_friend_request_accept_btn">Accept</string>
+    <string name="a_friend_request_decline_btn">Decline</string>
+
+
     <!-- supported platform -->
     <string name="gaming_platform_pc">PC</string>
     <string name="gaming_platform_ps4">PS4</string>

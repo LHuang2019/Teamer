@@ -31,7 +31,7 @@ class FriendRequestService: Service() {
         const val FRIEND_REQUEST_INTENT = "friend_request"
 
         private const val FRIEND_REQUESTS_COLLECTION = "friend_requests"
-        private const val RECIPIENT_FIELD = "recipient_id"
+        private const val RECIPIENT_FIELD = "recipient"
     }
 
     private val serviceBinder = ServiceBinder()
@@ -112,8 +112,8 @@ class FriendRequestService: Service() {
     }
 
     fun sendFriendRequest(recipient : String, sender : UserData) {
-        val friendRequest = FriendRequest(sender, recipient)
-
-        FirebaseFirestore.getInstance().collection(FRIEND_REQUESTS_COLLECTION).add(friendRequest)
+        val ref = FirestoreDatabase.getDatabase().collection(FRIEND_REQUESTS_COLLECTION).document()
+        val friendRequest = FriendRequest(ref.id, sender, recipient)
+        ref.set(friendRequest)
     }
 }

@@ -80,7 +80,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun addNewUser(user : FirebaseUser) {
-        userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), emptyList()))
+        userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList()))
     }
 
     fun addProfileData(username: String, platforms: List<Platform>, games: List<Game>) {

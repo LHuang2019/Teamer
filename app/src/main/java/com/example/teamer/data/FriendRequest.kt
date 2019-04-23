@@ -3,8 +3,9 @@ package com.example.teamer.data
 import java.io.Serializable
 
 data class FriendRequest (
-    var sender : UserData,
-    var recipient : String
+    val uid : String,
+    val sender : UserData,
+    val recipient : String
 ) : Serializable {
-    constructor() : this(UserData(), "")
+    constructor() : this("", UserData(), "")
 }
