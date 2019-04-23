@@ -13,8 +13,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.TaskStackBuilder
 import com.example.teamer.R
-import com.example.teamer.ResultActivity
+import com.example.teamer.FriendRequestResponseActivity
 import com.example.teamer.data.FirestoreDatabase
+import com.example.teamer.data.FriendRequest
+import com.example.teamer.data.UserData
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -26,10 +28,10 @@ class FriendRequestService: Service() {
 
     companion object {
         const val USER_INTENT = "user_id"
+        const val FRIEND_REQUEST_INTENT = "friend_request"
 
         private const val FRIEND_REQUESTS_COLLECTION = "friend_requests"
         private const val RECIPIENT_FIELD = "recipient_id"
-        private const val SENDER_FIELD = "sender_id"
     }
 
     private val serviceBinder = ServiceBinder()
@@ -51,22 +53,19 @@ class FriendRequestService: Service() {
                     return@EventListener
                 }
 
-                val requests = ArrayList<String>()
+                val requests = ArrayList<FriendRequest>()
                 for (doc in query) {
-                    when {
-                        doc.get(SENDER_FIELD) != null -> requests.add(doc.getString(SENDER_FIELD)!!)
-                    }
+                    requests.add(doc.toObject(FriendRequest::class.java))
                 }
 
                 if (requests.size > 0) {
                     // Create an explicit intent for an Activity in your app
-                    sendFriendRequestNotification()
+                    sendFriendRequestNotification(requests)
                 }
             })
 
         return serviceBinder
     }
-
 
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -85,10 +84,11 @@ class FriendRequestService: Service() {
         }
     }
 
-    private fun sendFriendRequestNotification() {
-        val intent = Intent(this, ResultActivity::class.java)
+    private fun sendFriendRequestNotification(requests : List<FriendRequest>) {
+        val intent = Intent(this, FriendRequestResponseActivity::class.java)
+        intent.putExtra(FRIEND_REQUEST_INTENT, requests[0])
 
-        val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
+        val resultPendingIntent : PendingIntent? = TaskStackBuilder.create(this).run {
             // Add the intent, which inflates the back stack
             addNextIntentWithParentStack(intent)
             // Get the PendingIntent containing the entire back stack
@@ -111,11 +111,9 @@ class FriendRequestService: Service() {
         notificationId++
     }
 
-    fun sendFriendRequest(recipientId : String, senderId : String) {
-        val data = HashMap<String, Any>()
-        data[RECIPIENT_FIELD] = recipientId
-        data[SENDER_FIELD] = senderId
+    fun sendFriendRequest(recipient : String, sender : UserData) {
+        val friendRequest = FriendRequest(sender, recipient)
 
-        FirebaseFirestore.getInstance().collection(FRIEND_REQUESTS_COLLECTION).add(data)
+        FirebaseFirestore.getInstance().collection(FRIEND_REQUESTS_COLLECTION).add(friendRequest)
     }
 }

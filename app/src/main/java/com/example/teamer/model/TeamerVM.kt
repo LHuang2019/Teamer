@@ -126,7 +126,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun sendFriendRequest(recipientId: String) {
-        friendRequestService.sendFriendRequest(recipientId, currentUserData.value?.uid!!)
+        friendRequestService.sendFriendRequest(recipientId, currentUserData.value!!)
     }
 
     fun getUserLogin() : UserLogin {
