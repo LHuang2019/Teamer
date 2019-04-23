@@ -30,6 +30,18 @@ class UserDataRepository {
         return userDataDao.getUserFriendList(uid)
     }
 
+    fun addFriendRequest(recipient : String, sender : UserData) {
+        userDataDao.addFriendRequest(recipient, sender)
+    }
+
+    fun removeFriendRequest(documentId : String) {
+        userDataDao.removeFriendRequest(documentId)
+    }
+
+    fun addFriend(recipient : String, sender : UserData) {
+        userDataDao.addFriend(recipient, sender)
+    }
+
     fun getDiscoverProfiles(): Task<QuerySnapshot> {
         return userDataDao.getDiscoverProfiles()
     }

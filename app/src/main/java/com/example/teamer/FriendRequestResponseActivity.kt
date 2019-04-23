@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.teamer.data.FriendRequest
 import com.example.teamer.model.TeamerVM
 import com.example.teamer.service.FriendRequestService
-import kotlinx.android.synthetic.main.fragment_view_profile.*
 
 class FriendRequestResponseActivity : AppCompatActivity() {
 
@@ -25,7 +24,7 @@ class FriendRequestResponseActivity : AppCompatActivity() {
         val userData = friendRequest?.sender
 
         val vm = this.run {
-            ViewModelProviders.of(this!!).get(TeamerVM::class.java)
+            ViewModelProviders.of(this).get(TeamerVM::class.java)
         }
 
         findViewById<TextView>(R.id.f_view_profile_username_tv).text = userData?.username
@@ -38,10 +37,13 @@ class FriendRequestResponseActivity : AppCompatActivity() {
 
 
         findViewById<Button>(R.id.a_friend_request_accept_btn).setOnClickListener {
+            friendRequest?.uid?.let { uid -> vm.removeFriendRequest(uid) }
+            friendRequest?.recipient?.let { recipient -> vm.addFriend(recipient, friendRequest.sender) }
             finish()
         }
 
         findViewById<Button>(R.id.a_friend_request_decline_btn).setOnClickListener {
+            friendRequest?.uid?.let { uid -> vm.removeFriendRequest(uid) }
             finish()
         }
     }

@@ -16,9 +16,7 @@ import com.example.teamer.R
 import com.example.teamer.FriendRequestResponseActivity
 import com.example.teamer.data.FirestoreDatabase
 import com.example.teamer.data.FriendRequest
-import com.example.teamer.data.UserData
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
 class FriendRequestService: Service() {
@@ -45,7 +43,6 @@ class FriendRequestService: Service() {
     override fun onBind(intent: Intent?): IBinder {
         createNotificationChannel()
 
-        // TODO: clear pending friend requests when notification is tapped
         FirestoreDatabase.getDatabase().collection(FRIEND_REQUESTS_COLLECTION)
             .whereEqualTo(RECIPIENT_FIELD, intent?.getStringExtra(USER_INTENT))
             .addSnapshotListener(EventListener<QuerySnapshot> { query, e ->
@@ -109,11 +106,5 @@ class FriendRequestService: Service() {
             notify(notificationId, builder.build())
         }
         notificationId++
-    }
-
-    fun sendFriendRequest(recipient : String, sender : UserData) {
-        val ref = FirestoreDatabase.getDatabase().collection(FRIEND_REQUESTS_COLLECTION).document()
-        val friendRequest = FriendRequest(ref.id, sender, recipient)
-        ref.set(friendRequest)
     }
 }

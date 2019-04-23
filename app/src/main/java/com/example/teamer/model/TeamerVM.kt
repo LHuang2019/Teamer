@@ -36,7 +36,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         UserLoginRepository(UserLoginDatabase.getDatabase(application).UserLoginDao())
 
     // service variables
-    private lateinit var friendRequestService: FriendRequestService
+    private var friendRequestService: FriendRequestService? = null
     var isBound = false
 
     private val messagingServiceConnection = object : ServiceConnection {
@@ -47,6 +47,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         }
 
         override fun onServiceDisconnected(componentName: ComponentName) {
+            friendRequestService = null
             isBound = false
         }
     }
@@ -125,8 +126,16 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         return friendList
     }
 
-    fun sendFriendRequest(recipientId: String) {
-        friendRequestService.sendFriendRequest(recipientId, currentUserData.value!!)
+    fun sendFriendRequest(recipientId : String) {
+        userDataRepo.addFriendRequest(recipientId, currentUserData.value!!)
+    }
+
+    fun removeFriendRequest(documentId : String) {
+        userDataRepo.removeFriendRequest(documentId)
+    }
+
+    fun addFriend(recipientId : String, sender : UserData) {
+        userDataRepo.addFriend(recipientId, sender)
     }
 
     fun getUserLogin() : UserLogin {
