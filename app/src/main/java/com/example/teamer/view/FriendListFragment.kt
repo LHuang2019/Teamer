@@ -2,7 +2,6 @@ package com.example.teamer.view
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +24,9 @@ class FriendListFragment : Fragment() {
     private lateinit var viewF : View
     private lateinit var recyclerView : RecyclerView
 
-    private lateinit var profileBtn : Button
     private lateinit var discoverBtn : Button
+    private lateinit var profileBtn : Button
+    private lateinit var logoutBtn : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +49,14 @@ class FriendListFragment : Fragment() {
         discoverBtn.setOnClickListener {
             Navigation.findNavController(viewF).navigate(
                 R.id.action_friendListFragment_to_discoverFragment
+            )
+        }
+
+        logoutBtn = viewF.findViewById(R.id.f_friend_list_logout_btn)
+        logoutBtn.setOnClickListener {
+            vm.logout()
+            Navigation.findNavController(viewF).navigate(
+                R.id.action_friendListFragment_to_welcomeFragment
             )
         }
 

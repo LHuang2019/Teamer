@@ -137,4 +137,12 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         userLoginRepo.clearUserLogin()
         userLoginRepo.insertUserLogin(email, password)
     }
+
+    fun logout() {
+        userLoginRepo.clearUserLogin()
+        currentUser = null
+        currentUserData = MutableLiveData()
+        friendList = MutableLiveData()
+        discoverProfileData = MutableLiveData()
+    }
 }

@@ -38,6 +38,7 @@
     <!-- friend list fragment -->
     <string name="f_friend_list_discover_btn">Discover</string>
     <string name="f_friend_list_profile_btn">Profile</string>
+    <string name="f_friend_list_logout_btn">Logout</string>
     <string name="recyleview_friend_name_tv">placeholder</string>
 
     <!-- supported platform -->
