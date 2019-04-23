@@ -7,13 +7,17 @@ import android.os.IBinder
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.teamer.data.*
 import com.example.teamer.service.FriendRequestService
-import com.example.teamer.data.UserData
-import com.example.teamer.data.UserDataRepository
 import com.example.teamer.misc.Game
 import com.example.teamer.misc.Platform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class TeamerVM(application : Application) : AndroidViewModel(application) {
 
@@ -21,11 +25,15 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     private var currentUser : FirebaseUser? = null
     private var currentUserData : MutableLiveData<UserData> = MutableLiveData()
     private var friendList : MutableLiveData<List<UserData>> = MutableLiveData()
-
+    var discoverProfileData : MutableLiveData<List<UserData>> = MutableLiveData()
     private var userDataRepo : UserDataRepository = UserDataRepository()
 
-    var discoverProfileData : MutableLiveData<List<UserData>> = MutableLiveData()
+    private var parentJob = Job()
+    private val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.Main
+    private val scope = CoroutineScope(coroutineContext)
 
+    private var userLoginRepo : UserLoginRepository =
+        UserLoginRepository(UserLoginDatabase.getDatabase(application).UserLoginDao())
 
     // service variables
     private lateinit var friendRequestService: FriendRequestService
@@ -119,5 +127,14 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     fun sendFriendRequest(recipientId: String) {
         friendRequestService.sendFriendRequest(recipientId, currentUserData.value?.uid!!)
+    }
+
+    fun getUserLogin() : UserLogin {
+        return userLoginRepo.getUserLogin()
+    }
+
+    fun updateUserLogin(email : String, password : String) = scope.launch(Dispatchers.IO) {
+        userLoginRepo.clearUserLogin()
+        userLoginRepo.insertUserLogin(email, password)
     }
 }

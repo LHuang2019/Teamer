@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
@@ -59,4 +61,11 @@ dependencies {
 
     // notifications
     implementation "com.android.support:support-compat:28.0.0"
+
+    // Room related
+    def room_version = "2.1.0-alpha04"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+    kapt "androidx.room:room-testing:$room_version"
 }

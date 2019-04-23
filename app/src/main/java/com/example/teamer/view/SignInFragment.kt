@@ -75,6 +75,8 @@ class SignInFragment : Fragment() {
                             )
                         }
                         else {
+                            vm.updateUserLogin(email, password)
+
                             Navigation.findNavController(viewF).navigate(
                                 R.id.action_signInFragment_to_friendListFragment
                             )
