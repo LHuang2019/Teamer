@@ -2,6 +2,7 @@ package com.example.teamer.view
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,6 @@ class FriendListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         vm = activity.run {
             ViewModelProviders.of(this!!).get(TeamerVM::class.java)
         }
@@ -58,8 +58,8 @@ class FriendListFragment : Fragment() {
             FriendListViewAdapter(activity as MainActivity)
         recyclerView.adapter = viewAdapter
 
-        vm.getCurrentUserData().observe(this@FriendListFragment, Observer { userData ->
-            userData.friendList.let { viewAdapter.setFriendList(it) }
+        vm.getCurrentUserFriendList().observe(this@FriendListFragment, Observer {
+            viewAdapter.setFriendList(it)
         })
 
         return viewF

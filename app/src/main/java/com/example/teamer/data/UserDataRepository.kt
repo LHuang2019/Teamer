@@ -26,6 +26,10 @@ class UserDataRepository {
         )
     }
 
+    fun getUserFriendList(uid : String): Task<QuerySnapshot> {
+        return userDataDao.getUserFriendList(uid)
+    }
+
     fun getDiscoverProfiles(): Task<QuerySnapshot> {
         return userDataDao.getDiscoverProfiles()
     }

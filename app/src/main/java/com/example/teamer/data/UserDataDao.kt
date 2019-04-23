@@ -10,6 +10,7 @@ class UserDataDao {
 
     companion object {
         private const val COLLECTION_NAME = "users"
+        private const val FRIEND_LIST_COLLECTION = "friends"
     }
 
     fun getUser(uid : String) : Task<DocumentSnapshot> {
@@ -26,6 +27,11 @@ class UserDataDao {
             "platforms", platforms,
             "games", games
         )
+    }
+
+    fun getUserFriendList(uid : String): Task<QuerySnapshot> {
+        return db.collection(COLLECTION_NAME)
+            .document(uid).collection(FRIEND_LIST_COLLECTION).get()
     }
 
     fun getDiscoverProfiles(): Task<QuerySnapshot> {

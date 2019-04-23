@@ -9,40 +9,52 @@ import android.content.Intent
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
 import com.example.teamer.R
+import com.example.teamer.ResultActivity
+import com.example.teamer.data.FirestoreDatabase
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
-class MessagingService: Service() {
+class FriendRequestService: Service() {
 
-    inner class ServiceBinder: Binder(){
-        fun getService(): MessagingService {
-            return this@MessagingService
-        }
+    private val CHANNEL_ID = "friend_request_channel"
+    private var notificationId = 1
+
+    companion object {
+        const val USER_INTENT = "user_id"
+
+        private const val FRIEND_REQUESTS_COLLECTION = "friend_requests"
+        private const val RECIPIENT_FIELD = "recipient_id"
+        private const val SENDER_FIELD = "sender_id"
     }
 
     private val serviceBinder = ServiceBinder()
+
+    inner class ServiceBinder: Binder(){
+        fun getService(): FriendRequestService {
+            return this@FriendRequestService
+        }
+    }
 
     override fun onBind(intent: Intent?): IBinder {
         createNotificationChannel()
 
         // TODO: clear pending friend requests when notification is tapped
-        FirebaseFirestore.getInstance().collection("pending_friend_requests")
-            .whereEqualTo("recipient_id", intent?.getStringExtra("user_uid"))
-            .addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
-                if (e != null) {
-                    Log.w("Test", "Listen failed.", e)
+        FirestoreDatabase.getDatabase().collection(FRIEND_REQUESTS_COLLECTION)
+            .whereEqualTo(RECIPIENT_FIELD, intent?.getStringExtra(USER_INTENT))
+            .addSnapshotListener(EventListener<QuerySnapshot> { query, e ->
+                if (e != null || query == null) {
                     return@EventListener
                 }
 
                 val requests = ArrayList<String>()
-                for (doc in value!!) {
-                    if (doc.get("sender_id") != null) {
-                        requests.add(doc.getString("sender_id")!!)
+                for (doc in query) {
+                    when {
+                        doc.get(SENDER_FIELD) != null -> requests.add(doc.getString(SENDER_FIELD)!!)
                     }
                 }
 
@@ -55,8 +67,6 @@ class MessagingService: Service() {
         return serviceBinder
     }
 
-    val CHANNEL_ID = "friend_request_channel"
-    var notificationId = 1
 
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -76,10 +86,14 @@ class MessagingService: Service() {
     }
 
     private fun sendFriendRequestNotification() {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val intent = Intent(this, ResultActivity::class.java)
+
+        val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
+            // Add the intent, which inflates the back stack
+            addNextIntentWithParentStack(intent)
+            // Get the PendingIntent containing the entire back stack
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.friend_notif_icon)
@@ -87,7 +101,7 @@ class MessagingService: Service() {
             .setContentText("A new user would like to add you as a friend.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             // Set the intent that will fire when the user taps the notification
-            .setContentIntent(pendingIntent)
+            .setContentIntent(resultPendingIntent)
             .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(applicationContext)) {
@@ -97,11 +111,11 @@ class MessagingService: Service() {
         notificationId++
     }
 
-    fun sendFriendRequest(recipient_id: String, sender_id: String) {
+    fun sendFriendRequest(recipientId : String, senderId : String) {
         val data = HashMap<String, Any>()
-        data["recipient_id"] = recipient_id
-        data["sender_id"] = sender_id
+        data[RECIPIENT_FIELD] = recipientId
+        data[SENDER_FIELD] = senderId
 
-        FirebaseFirestore.getInstance().collection("pending_friend_requests").add(data)
+        FirebaseFirestore.getInstance().collection(FRIEND_REQUESTS_COLLECTION).add(data)
     }
 }

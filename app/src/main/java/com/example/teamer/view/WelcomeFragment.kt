@@ -17,10 +17,10 @@ class WelcomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var viewF : View = inflater.inflate(R.layout.fragment_welcome, container, false)
+        val viewF : View = inflater.inflate(R.layout.fragment_welcome, container, false)
 
-        var signInBtn : Button = viewF.findViewById(R.id.f_welcome_sign_in_btn)
-        var signUpBtn : Button = viewF.findViewById(R.id.f_welcome_sign_up_btn)
+        val signInBtn : Button = viewF.findViewById(R.id.f_welcome_sign_in_btn)
+        val signUpBtn : Button = viewF.findViewById(R.id.f_welcome_sign_up_btn)
 
         signInBtn.setOnClickListener {
             Navigation.findNavController(viewF).navigate(R.id.action_welcomeFragment_to_signInFragment)

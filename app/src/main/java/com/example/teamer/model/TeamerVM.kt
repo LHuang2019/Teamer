@@ -7,7 +7,7 @@ import android.os.IBinder
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.teamer.service.MessagingService
+import com.example.teamer.service.FriendRequestService
 import com.example.teamer.data.UserData
 import com.example.teamer.data.UserDataRepository
 import com.example.teamer.misc.Game
@@ -20,19 +20,21 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     private var auth : FirebaseAuth = FirebaseAuth.getInstance()
     private var currentUser : FirebaseUser? = null
     private var currentUserData : MutableLiveData<UserData> = MutableLiveData()
-
-    var discoverProfileData : MutableLiveData<ArrayList<UserData>> = MutableLiveData()
+    private var friendList : MutableLiveData<List<UserData>> = MutableLiveData()
 
     private var userDataRepo : UserDataRepository = UserDataRepository()
 
+    var discoverProfileData : MutableLiveData<List<UserData>> = MutableLiveData()
+
+
     // service variables
-    private lateinit var messagingService: MessagingService
+    private lateinit var friendRequestService: FriendRequestService
     var isBound = false
 
     private val messagingServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
-            val binder = iBinder as MessagingService.ServiceBinder
-            messagingService = binder.getService()
+            val binder = iBinder as FriendRequestService.ServiceBinder
+            friendRequestService = binder.getService()
             isBound = true
         }
 
@@ -43,8 +45,8 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     fun bindMessagingService(activity: Activity, context: Context) {
         if (!isBound) {
-            val serviceIntent = Intent(Intent(context, MessagingService::class.java))
-            serviceIntent.putExtra("user_uid", currentUserData.value?.uid)
+            val serviceIntent = Intent(Intent(context, FriendRequestService::class.java))
+            serviceIntent.putExtra(FriendRequestService.USER_INTENT, currentUserData.value?.uid)
             activity.bindService(serviceIntent, messagingServiceConnection, Context.BIND_AUTO_CREATE)
         }
     }
@@ -54,6 +56,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun getCurrentUserData() : LiveData<UserData> {
+        if (currentUser == null) return currentUserData
         userDataRepo.getUserByUid(currentUser!!.uid)
             .addOnSuccessListener { document ->
                 if (document.exists()) {
@@ -69,18 +72,19 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun addNewUser(user : FirebaseUser) {
-        userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), emptyList(), emptyList()))
+        userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), emptyList()))
     }
 
     fun addProfileData(username: String, platforms: List<Platform>, games: List<Game>) {
         userDataRepo.addProfileData(currentUser!!.uid, username, platforms, games)
     }
 
-    fun updateDiscoverProfilesData() : LiveData<ArrayList<UserData>> {
-        val discoverProfiles = ArrayList<UserData>()
+    fun updateDiscoverProfilesData() : LiveData<List<UserData>> {
 
         userDataRepo.getDiscoverProfiles()
             .addOnSuccessListener { result ->
+                val discoverProfiles = ArrayList<UserData>()
+
                 for (document in result) {
                     val data = document.toObject(UserData::class.java)
                     if (data.uid != currentUserData.value?.uid) {
@@ -95,7 +99,25 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         return discoverProfileData
     }
 
-    fun sendFriendRequest(recipient_id: String) {
-        messagingService.sendFriendRequest(recipient_id, currentUserData.value?.uid!!)
+    fun getCurrentUserFriendList() : LiveData<List<UserData>> {
+
+        userDataRepo.getUserFriendList(currentUser!!.uid)
+            .addOnSuccessListener { query ->
+                val currentFriendList = ArrayList<UserData>()
+
+                for (document in query) {
+                    val user = document.toObject(UserData::class.java)
+                    currentFriendList.add(user)
+                }
+
+                friendList.postValue(currentFriendList)
+            }
+            .addOnFailureListener { }
+
+        return friendList
+    }
+
+    fun sendFriendRequest(recipientId: String) {
+        friendRequestService.sendFriendRequest(recipientId, currentUserData.value?.uid!!)
     }
 }
