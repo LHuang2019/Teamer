@@ -20,11 +20,14 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.QuerySnapshot
 
 class FriendRequestService: Service() {
-
-    private val CHANNEL_ID = "friend_request_channel"
     private var notificationId = 1
 
     companion object {
+        private val GROUP_KEY = "friend_request_group"
+        private val SUMMARY_ID = 0
+
+        private val CHANNEL_ID = "friend_request_channel"
+
         const val USER_INTENT = "user_id"
         const val FRIEND_REQUEST_INTENT = "friend_request"
 
@@ -82,29 +85,44 @@ class FriendRequestService: Service() {
     }
 
     private fun sendFriendRequestNotification(requests : List<FriendRequest>) {
-        val intent = Intent(this, FriendRequestResponseActivity::class.java)
-        intent.putExtra(FRIEND_REQUEST_INTENT, requests[0])
+        for (request in requests) {
+            val intent = Intent(this, FriendRequestResponseActivity::class.java)
+            intent.putExtra(FRIEND_REQUEST_INTENT, request)
 
-        val resultPendingIntent : PendingIntent? = TaskStackBuilder.create(this).run {
-            // Add the intent, which inflates the back stack
-            addNextIntentWithParentStack(intent)
-            // Get the PendingIntent containing the entire back stack
-            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
+                // Add the intent, which inflates the back stack
+                addNextIntentWithParentStack(intent)
+                // Get the PendingIntent containing the entire back stack
+                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            }
+
+            val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.friend_notif_icon)
+                .setContentTitle(request.sender.username)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(resultPendingIntent)
+                .setAutoCancel(true)
+                .setGroup(GROUP_KEY)
+
+            with(NotificationManagerCompat.from(applicationContext)) {
+                // notificationId is a unique int for each notification that you must define
+                notify(notificationId, builder.build())
+            }
+            notificationId++
         }
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+        val summaryNotification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.friend_notif_icon)
-            .setContentTitle("Friend Request")
-            .setContentText("A new user would like to add you as a friend.")
+            .setContentTitle("New Friend Requests")
+            .setContentText(requests.size.toString() + " new user(s) would like to add you as a friend.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            // Set the intent that will fire when the user taps the notification
-            .setContentIntent(resultPendingIntent)
             .setAutoCancel(true)
+            .setGroup(GROUP_KEY)
+            .setGroupSummary(true).build()
 
         with(NotificationManagerCompat.from(applicationContext)) {
             // notificationId is a unique int for each notification that you must define
-            notify(notificationId, builder.build())
+            notify(SUMMARY_ID, summaryNotification)
         }
-        notificationId++
     }
 }
