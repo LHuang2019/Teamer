@@ -26,6 +26,7 @@
     <string name="f_view_profile_game_title_tv">Games:</string>
     <string name="f_view_profile_game_list_tv">Game list</string>
     <string name="f_view_profile_edit_profile_btn">Edit Profile</string>
+    <string name="f_view_profile_friendlist_btn">Friend list</string>
 
     <!-- create profile fragment -->
     <string name="f_create_profile_title_tv">Create Profile</string>
@@ -62,8 +63,5 @@
     <string name="game_csgo">CS:GO</string>
     <string name="game_apex_legends">Apex Legends</string>
     <string name="game_rocket_league">Rocket League</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

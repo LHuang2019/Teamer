@@ -40,9 +40,11 @@ class ViewProfileFragment : Fragment() {
         })
 
         viewF.findViewById<Button>(R.id.f_view_profile_edit_profile_btn).setOnClickListener {
-            Navigation.findNavController(viewF).navigate(
-                R.id.action_viewProfileFragment_to_createProfileFragment
-            )
+            Navigation.findNavController(viewF).navigate(R.id.action_viewProfileFragment_to_createProfileFragment)
+        }
+
+        viewF.findViewById<Button>(R.id.f_view_profile_friendlist_btn).setOnClickListener {
+            Navigation.findNavController(viewF).navigate(R.id.action_viewProfileFragment_to_friendListFragment)
         }
 
         return viewF
