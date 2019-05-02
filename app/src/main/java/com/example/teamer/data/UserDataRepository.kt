@@ -34,6 +34,10 @@ class UserDataRepository {
         userDataDao.addFriend(recipient, sender)
     }
 
+    fun removeFriend(userUid : String, friendUid : String) {
+        userDataDao.removeFriend(userUid, friendUid)
+    }
+
     fun getFriendRequests(uid : String): Task<QuerySnapshot> {
         return userDataDao.getPendingFriendRequests(uid)
     }

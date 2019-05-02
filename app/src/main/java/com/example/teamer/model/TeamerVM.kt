@@ -127,16 +127,20 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         return pendingRequestsList
     }
 
+    fun addFriend(recipientId : String, sender : UserData) {
+        userDataRepo.addFriend(recipientId, sender)
+    }
+
+    fun removeFriend(friendUid : String) {
+        userDataRepo.removeFriend(auth.currentUser!!.uid, friendUid)
+    }
+
     fun sendFriendRequest(recipientUid : String, recipientToken : String) {
         userDataRepo.addFriendRequest(recipientUid, recipientToken, currentUserData.value!!)
     }
 
     fun removeFriendRequest(documentId : String) {
         userDataRepo.removeFriendRequest(auth.currentUser!!.uid, documentId)
-    }
-
-    fun addFriend(recipientId : String, sender : UserData) {
-        userDataRepo.addFriend(recipientId, sender)
     }
 
     fun getUserLogin() : UserLogin {

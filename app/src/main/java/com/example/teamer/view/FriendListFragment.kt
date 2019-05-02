@@ -68,8 +68,6 @@ class FriendListFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        listGroup.check(R.id.f_friend_list_friends_rb)
-
         listGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.f_friend_list_friends_rb) {
                 val viewAdapter = FriendListViewAdapter(activity as MainActivity)
@@ -86,6 +84,8 @@ class FriendListFragment : Fragment() {
                 })
             }
         }
+
+        listGroup.check(R.id.f_friend_list_friends_rb)
 
         return viewF
     }

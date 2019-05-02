@@ -19,8 +19,7 @@ class PendingRequestListViewAdapter internal constructor(context : Context) :
 
     inner class PendingRequestListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(request : FriendRequest) {
-            itemView.findViewById<TextView>(R.id.recyleview_username_tv).text =
-                request.sender.username
+            itemView.findViewById<TextView>(R.id.recyleview_username_tv).text = request.sender.username
 
             itemView.setOnClickListener {
                 Navigation.findNavController(itemView).navigate(

@@ -42,6 +42,8 @@
         <action android:id="@+id/action_friendListFragment_to_welcomeFragment" app:destination="@id/welcomeFragment"/>
         <action android:id="@+id/action_friendListFragment_to_friendRequestResponseFragment"
                 app:destination="@id/friendRequestResponseFragment"/>
+        <action android:id="@+id/action_friendListFragment_to_friendProfileFragment"
+                app:destination="@id/friendProfileFragment"/>
     </fragment>
     <fragment android:id="@+id/discoverFragment" android:name="com.example.teamer.view.DiscoverFragment"
               android:label="fragment_discover" tools:layout="@layout/fragment_discover"/>
@@ -49,6 +51,11 @@
               android:name="com.example.teamer.view.FriendRequestResponseFragment"
               android:label="fragment_friend_request_response" tools:layout="@layout/fragment_friend_request_response">
         <action android:id="@+id/action_friendRequestResponseFragment_to_friendListFragment"
+                app:destination="@id/friendListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/friendProfileFragment" android:name="com.example.teamer.view.FriendProfileFragment"
+              android:label="fragment_friend_profile" tools:layout="@layout/fragment_friend_profile">
+        <action android:id="@+id/action_friendProfileFragment_to_friendListFragment"
                 app:destination="@id/friendListFragment"/>
     </fragment>
 </navigation>

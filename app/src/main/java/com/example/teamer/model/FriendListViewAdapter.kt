@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamer.R
 import com.example.teamer.data.UserData
@@ -18,6 +20,13 @@ class FriendListViewAdapter internal constructor(context : Context) :
     inner class FriendListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(user : UserData) {
             itemView.findViewById<TextView>(R.id.recyleview_username_tv).text = user.username
+
+            itemView.setOnClickListener {
+                Navigation.findNavController(itemView).navigate(
+                    R.id.action_friendListFragment_to_friendProfileFragment,
+                    bundleOf("user" to user)
+                )
+            }
         }
     }
 

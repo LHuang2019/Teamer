@@ -53,6 +53,15 @@
     <string name="f_response_accept_btn">Accept</string>
     <string name="f_response_decline_btn">Decline</string>
 
+    <!-- friend profile fragment -->
+    <string name="f_friend_profile_username_tv">Username</string>
+    <string name="f_friend_profile_platform_tv">Gaming Platforms:</string>
+    <string name="f_friend_profile_platform_list_tv">Platform list</string>
+    <string name="f_friend_profile_game_tv">Games:</string>
+    <string name="f_friend_profile_game_list_tv">Game list</string>
+    <string name="f_friend_profile_chat_btn">Chat</string>
+    <string name="f_friend_profile_remove_btn">Remove</string>
+
     <!-- supported platform -->
     <string name="gaming_platform_pc">PC</string>
     <string name="gaming_platform_ps4">PS4</string>
@@ -63,5 +72,8 @@
     <string name="game_csgo">CS:GO</string>
     <string name="game_apex_legends">Apex Legends</string>
     <string name="game_rocket_league">Rocket League</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -36,17 +36,21 @@ class UserDataDao {
     }
 
     fun addFriend(recipient : String, sender : UserData) {
-        db.collection(USERS_COLLECTION).document(recipient).collection(FRIEND_LIST_COLLECTION).add(sender)
+        db.collection(USERS_COLLECTION).document(recipient).collection(FRIEND_LIST_COLLECTION).document(sender.uid).set(sender)
+
         getUser(recipient).addOnSuccessListener { document ->
             if (document.exists()) {
                 val userData = document.toObject(UserData::class.java)
                 userData?.let {
-                    db.collection(USERS_COLLECTION).document(sender.uid).collection(FRIEND_LIST_COLLECTION).add(
-                        it
-                    )
+                    db.collection(USERS_COLLECTION).document(sender.uid).collection(FRIEND_LIST_COLLECTION).document(it.uid).set(it)
                 }
             }
         }.addOnFailureListener { }
+    }
+
+    fun removeFriend(userUid : String, friendUid : String) {
+        db.collection(USERS_COLLECTION).document(userUid).collection(FRIEND_LIST_COLLECTION).document(friendUid).delete()
+        db.collection(USERS_COLLECTION).document(friendUid).collection(FRIEND_LIST_COLLECTION).document(userUid).delete()
     }
 
     fun getPendingFriendRequests(uid : String): Task<QuerySnapshot> {

@@ -16,9 +16,9 @@ import com.example.teamer.model.TeamerVM
 
 class FriendRequestResponseFragment : Fragment() {
 
-    lateinit var vm : TeamerVM
+    private lateinit var vm : TeamerVM
 
-    lateinit var viewF : View
+    private lateinit var viewF : View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,6 @@ class FriendRequestResponseFragment : Fragment() {
 
         val gameStr = userData?.games?.joinToString { game -> game }
         viewF.findViewById<TextView>(R.id.f_response_game_list_tv).text = gameStr
-
 
         viewF.findViewById<Button>(R.id.f_response_accept_btn).setOnClickListener {
             friendRequest?.uid?.let { uid -> vm.removeFriendRequest(uid) }
