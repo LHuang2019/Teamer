@@ -5,7 +5,8 @@ import java.io.Serializable
 data class FriendRequest (
     val uid : String,
     val sender : UserData,
-    val recipient : String
+    val recipientUid : String,
+    val recipientToken : String
 ) : Serializable {
-    constructor() : this("", UserData(), "")
+    constructor() : this("", UserData(), "", "")
 }

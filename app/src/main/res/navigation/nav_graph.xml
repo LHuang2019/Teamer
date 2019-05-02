@@ -40,7 +40,15 @@
                 app:destination="@id/viewProfileFragment"/>
         <action android:id="@+id/action_friendListFragment_to_discoverFragment" app:destination="@id/discoverFragment"/>
         <action android:id="@+id/action_friendListFragment_to_welcomeFragment" app:destination="@id/welcomeFragment"/>
+        <action android:id="@+id/action_friendListFragment_to_friendRequestResponseFragment"
+                app:destination="@id/friendRequestResponseFragment"/>
     </fragment>
     <fragment android:id="@+id/discoverFragment" android:name="com.example.teamer.view.DiscoverFragment"
               android:label="fragment_discover" tools:layout="@layout/fragment_discover"/>
+    <fragment android:id="@+id/friendRequestResponseFragment"
+              android:name="com.example.teamer.view.FriendRequestResponseFragment"
+              android:label="fragment_friend_request_response" tools:layout="@layout/fragment_friend_request_response">
+        <action android:id="@+id/action_friendRequestResponseFragment_to_friendListFragment"
+                app:destination="@id/friendListFragment"/>
+    </fragment>
 </navigation>

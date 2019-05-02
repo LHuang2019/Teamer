@@ -7,7 +7,8 @@ data class UserData(
     var username : String,
     var email : String,
     var platforms : List<String>,
-    var games : List<String>
+    var games : List<String>,
+    var tokenId : String
 ) : Serializable {
-    constructor() : this("", "", "", emptyList(), emptyList())
+    constructor() : this("", "", "", emptyList(), emptyList(), "")
 }

@@ -1,7 +1,6 @@
 package com.example.teamer.data
 
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
 
 class UserLoginRepository(private val userLoginDao : UserLoginDao) {
 

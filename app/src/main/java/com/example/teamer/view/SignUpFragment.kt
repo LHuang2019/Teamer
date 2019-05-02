@@ -68,10 +68,6 @@ class SignUpFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     vm.addNewUser(auth.currentUser!!)
-                    vm.setCurrentUser(auth.currentUser!!)
-
-                    vm.bindMessagingService(this.activity!!, this.context!!)
-
                     Navigation.findNavController(viewF).navigate(R.id.action_signUpFragment_to_createProfileFragment)
                 }
                 else {

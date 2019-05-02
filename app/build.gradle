@@ -68,4 +68,5 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
     kapt "androidx.room:room-testing:$room_version"
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

@@ -17,12 +17,12 @@ class FriendListViewAdapter internal constructor(context : Context) :
 
     inner class FriendListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(user : UserData) {
-            itemView.findViewById<TextView>(R.id.recyleview_friend_name_tv).text = user.username
+            itemView.findViewById<TextView>(R.id.recyleview_username_tv).text = user.username
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendListViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_friend, parent, false)
+        val itemView = inflater.inflate(R.layout.recyclerview_user, parent, false)
         return FriendListViewHolder(itemView)
     }
 

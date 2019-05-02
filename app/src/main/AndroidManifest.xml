@@ -18,9 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FriendRequestResponseActivity"
-                android:parentActivityName=".MainActivity" />
-        <service android:name="com.example.teamer.service.FriendRequestService"
+        <service
+                android:name="com.example.teamer.service.FriendRequestMessagingService"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -35,12 +35,6 @@ class UserDataDao {
             .document(uid).collection(FRIEND_LIST_COLLECTION).get()
     }
 
-    fun addFriendRequest(recipient : String, sender : UserData) {
-        val ref = db.collection(FRIEND_REQUESTS_COLLECTION).document()
-        val friendRequest = FriendRequest(ref.id, sender, recipient)
-        ref.set(friendRequest)
-    }
-
     fun addFriend(recipient : String, sender : UserData) {
         db.collection(USERS_COLLECTION).document(recipient).collection(FRIEND_LIST_COLLECTION).add(sender)
         getUser(recipient).addOnSuccessListener { document ->
@@ -55,8 +49,21 @@ class UserDataDao {
         }.addOnFailureListener { }
     }
 
-    fun removeFriendRequest(documentId : String) {
-        db.collection(FRIEND_REQUESTS_COLLECTION).document(documentId).delete()
+    fun getPendingFriendRequests(uid : String): Task<QuerySnapshot> {
+        return db.collection(USERS_COLLECTION)
+            .document(uid).collection(FRIEND_REQUESTS_COLLECTION).get()
+    }
+
+    fun addFriendRequest(recipientUid : String, recipientToken : String, sender : UserData) {
+        val ref = db.collection(USERS_COLLECTION).document(recipientUid)
+            .collection(FRIEND_REQUESTS_COLLECTION).document()
+        val friendRequest = FriendRequest(ref.id, sender, recipientUid, recipientToken)
+        ref.set(friendRequest)
+    }
+
+    fun removeFriendRequest(uid : String, documentId : String) {
+        db.collection(USERS_COLLECTION).document(uid)
+            .collection(FRIEND_REQUESTS_COLLECTION).document(documentId).delete()
     }
 
     fun getDiscoverProfiles(): Task<QuerySnapshot> {

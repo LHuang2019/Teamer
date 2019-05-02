@@ -29,7 +29,9 @@ class DiscoverFragment : Fragment() {
 
         override fun onCardSwiped(direction: Direction?) {
             if (direction == Direction.Right) {
-                vm.sendFriendRequest(vm.discoverProfileData.value?.get(manager.topPosition - 1)?.uid!!)
+                vm.sendFriendRequest(
+                    vm.discoverProfileData.value?.get(manager.topPosition - 1)?.uid!!,
+                    vm.discoverProfileData.value?.get(manager.topPosition - 1)?.tokenId!!)
             }
         }
 

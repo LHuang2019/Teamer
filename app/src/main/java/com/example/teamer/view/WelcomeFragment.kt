@@ -38,10 +38,7 @@ class WelcomeFragment : Fragment() {
             auth.signInWithEmailAndPassword(userLogin.email, userLogin.password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        vm.setCurrentUser(auth.currentUser!!)
                         vm.getCurrentUserData().observe(this@WelcomeFragment, Observer {
-                            // bind the messaging / add friend notification service
-                            vm.bindMessagingService(this.activity!!, this.context!!)
                             Navigation.findNavController(viewF).navigate(
                                 R.id.action_welcomeFragment_to_friendListFragment
                             )

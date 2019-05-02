@@ -63,12 +63,7 @@ class SignInFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    vm.setCurrentUser(auth.currentUser!!)
                     vm.getCurrentUserData().observe(this@SignInFragment, Observer { userData ->
-
-                        // bind the messaging / add friend notification service
-                        vm.bindMessagingService(this.activity!!, this.context!!)
-
                         if (userData.username.isEmpty()) {
                             Navigation.findNavController(viewF).navigate(
                                 R.id.action_signInFragment_to_createProfileFragment
