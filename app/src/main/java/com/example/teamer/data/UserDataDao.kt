@@ -28,6 +28,19 @@ class UserDataDao {
             "platforms", platforms,
             "games", games
         )
+
+        getUserFriendList(uid)
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val friend = document.toObject(UserData::class.java)
+                    db.collection(USERS_COLLECTION).document(friend.uid).collection(FRIEND_LIST_COLLECTION)
+                        .document(uid).update(
+                            "username", username,
+                            "platforms", platforms,
+                            "games", games
+                        )
+                }
+            }
     }
 
     fun getUserFriendList(uid : String): Task<QuerySnapshot> {
