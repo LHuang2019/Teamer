@@ -9,8 +9,6 @@ import com.example.teamer.misc.Game
 import com.example.teamer.misc.Platform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +33,7 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
 
     private var userLoginRepo : UserLoginRepository =
         UserLoginRepository(UserLoginDatabase.getDatabase(application).UserLoginDao())
+
 
     fun getAuth() : FirebaseAuth {
         return auth
@@ -92,37 +91,39 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         return discoverProfileData
     }
 
-    fun initFriendListListener() {
-        userDataRepo.getUserFriendList(auth.currentUser!!.uid).addSnapshotListener(
-            EventListener<QuerySnapshot> { query, e ->
-                if (e != null || query == null) {
-                    return@EventListener
-                }
-
-                val currentFriendList = ArrayList<UserData>()
-                query.mapTo(currentFriendList) { it.toObject(UserData::class.java) }
-                friendList.postValue(currentFriendList)
-            })
-    }
-
-    fun initPendingRequestListener() {
-        userDataRepo.getFriendRequests(auth.currentUser!!.uid).addSnapshotListener(
-            EventListener<QuerySnapshot> { query, e ->
-                if (e != null || query == null) {
-                    return@EventListener
-                }
-
-                val pendingRequests = ArrayList<FriendRequest>()
-                query.mapTo(pendingRequests) { it.toObject(FriendRequest::class.java) }
-                pendingRequestsList.postValue(pendingRequests)
-            })
-    }
-
     fun getCurrentUserFriendList() : LiveData<List<UserData>> {
+
+        userDataRepo.getUserFriendList(auth.currentUser!!.uid)
+            .addOnSuccessListener { query ->
+                val currentFriendList = ArrayList<UserData>()
+
+                for (document in query) {
+                    val user = document.toObject(UserData::class.java)
+                    currentFriendList.add(user)
+                }
+
+                friendList.postValue(currentFriendList)
+            }
+            .addOnFailureListener { }
+
         return friendList
     }
 
     fun getCurrentUserPendingRequests() : LiveData<List<FriendRequest>> {
+
+        userDataRepo.getFriendRequests(auth.currentUser!!.uid)
+            .addOnSuccessListener { query ->
+                val currentPendingRequests = ArrayList<FriendRequest>()
+
+                for (document in query) {
+                    val friendRequest = document.toObject(FriendRequest::class.java)
+                    currentPendingRequests.add(friendRequest)
+                }
+
+                pendingRequestsList.postValue(currentPendingRequests)
+            }
+            .addOnFailureListener { }
+
         return pendingRequestsList
     }
 

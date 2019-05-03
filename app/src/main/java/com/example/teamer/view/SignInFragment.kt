@@ -71,8 +71,6 @@ class SignInFragment : Fragment() {
                         }
                         else {
                             vm.updateUserLogin(email, password)
-                            vm.initFriendListListener()
-                            vm.initPendingRequestListener()
 
                             Navigation.findNavController(viewF).navigate(
                                 R.id.action_signInFragment_to_friendListFragment

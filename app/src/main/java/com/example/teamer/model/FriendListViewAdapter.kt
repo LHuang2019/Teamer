@@ -20,6 +20,7 @@ class FriendListViewAdapter internal constructor(context : Context) :
     inner class FriendListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(user : UserData) {
             itemView.findViewById<TextView>(R.id.recyleview_username_tv).text = user.username
+
             itemView.setOnClickListener {
                 Navigation.findNavController(itemView).navigate(
                     R.id.action_friendListFragment_to_friendProfileFragment,
