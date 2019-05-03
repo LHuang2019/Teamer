@@ -1,6 +1,7 @@
 package com.example.teamer.data
 
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -30,9 +31,9 @@ class UserDataDao {
         )
     }
 
-    fun getUserFriendList(uid : String): Task<QuerySnapshot> {
+    fun getUserFriendList(uid : String): CollectionReference {
         return db.collection(USERS_COLLECTION)
-            .document(uid).collection(FRIEND_LIST_COLLECTION).get()
+            .document(uid).collection(FRIEND_LIST_COLLECTION)
     }
 
     fun addFriend(recipient : String, sender : UserData) {
@@ -53,9 +54,9 @@ class UserDataDao {
         db.collection(USERS_COLLECTION).document(friendUid).collection(FRIEND_LIST_COLLECTION).document(userUid).delete()
     }
 
-    fun getPendingFriendRequests(uid : String): Task<QuerySnapshot> {
+    fun getPendingFriendRequests(uid : String): CollectionReference {
         return db.collection(USERS_COLLECTION)
-            .document(uid).collection(FRIEND_REQUESTS_COLLECTION).get()
+            .document(uid).collection(FRIEND_REQUESTS_COLLECTION)
     }
 
     fun addFriendRequest(recipientUid : String, recipientToken : String, sender : UserData) {

@@ -3,6 +3,7 @@ package com.example.teamer.data
 import com.example.teamer.misc.Game
 import com.example.teamer.misc.Platform
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -26,7 +27,7 @@ class UserDataRepository {
         )
     }
 
-    fun getUserFriendList(uid : String): Task<QuerySnapshot> {
+    fun getUserFriendList(uid : String): CollectionReference {
         return userDataDao.getUserFriendList(uid)
     }
 
@@ -38,7 +39,7 @@ class UserDataRepository {
         userDataDao.removeFriend(userUid, friendUid)
     }
 
-    fun getFriendRequests(uid : String): Task<QuerySnapshot> {
+    fun getFriendRequests(uid : String): CollectionReference {
         return userDataDao.getPendingFriendRequests(uid)
     }
 
