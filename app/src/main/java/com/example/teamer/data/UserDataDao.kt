@@ -85,6 +85,6 @@ class UserDataDao {
 
     fun getDiscoverProfiles(): Task<QuerySnapshot> {
         // get 3 user profiles in the DB
-        return db.collection(USERS_COLLECTION).limit(4).get()
+        return db.collection(USERS_COLLECTION).get()
     }
 }

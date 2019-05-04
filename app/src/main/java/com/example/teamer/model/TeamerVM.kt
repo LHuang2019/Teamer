@@ -72,14 +72,13 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun updateDiscoverProfilesData() : LiveData<List<UserData>> {
-
         userDataRepo.getDiscoverProfiles()
             .addOnSuccessListener { result ->
                 val discoverProfiles = ArrayList<UserData>()
 
                 for (document in result) {
                     val data = document.toObject(UserData::class.java)
-                    if (data.uid != currentUserData.value?.uid) {
+                    if (data.uid != currentUserData.value?.uid && data !in friendList.value!!) {
                         discoverProfiles.add(data)
                     }
                 }
