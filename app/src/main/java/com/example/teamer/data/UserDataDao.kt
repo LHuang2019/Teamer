@@ -72,10 +72,17 @@ class UserDataDao {
     }
 
     fun addFriendRequest(recipientUid : String, recipientToken : String, sender : UserData) {
-        val ref = db.collection(USERS_COLLECTION).document(recipientUid)
-            .collection(FRIEND_REQUESTS_COLLECTION).document()
-        val friendRequest = FriendRequest(ref.id, sender, recipientUid, recipientToken)
-        ref.set(friendRequest)
+
+        db.collection(USERS_COLLECTION)
+            .document(recipientUid).collection(FRIEND_REQUESTS_COLLECTION).whereEqualTo("sender.uid", sender.uid)
+            .get().addOnSuccessListener {
+                if (it.isEmpty) {
+                    val ref = db.collection(USERS_COLLECTION).document(recipientUid)
+                        .collection(FRIEND_REQUESTS_COLLECTION).document()
+                    val friendRequest = FriendRequest(ref.id, sender, recipientUid, recipientToken)
+                    ref.set(friendRequest)
+                }
+            }
     }
 
     fun removeFriendRequest(uid : String, documentId : String) {
