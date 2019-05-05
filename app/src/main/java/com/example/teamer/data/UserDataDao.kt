@@ -18,8 +18,8 @@ class UserDataDao {
          return db.collection(USERS_COLLECTION).document(uid).get()
     }
 
-    fun insertUser(user : UserData) {
-        db.collection(USERS_COLLECTION).document(user.uid).set(user)
+    fun insertUser(user : UserData): Task<Void> {
+        return db.collection(USERS_COLLECTION).document(user.uid).set(user)
     }
 
     fun addProfileData(uid: String, username: String, platforms: List<String>, games: List<String>) {
@@ -41,6 +41,10 @@ class UserDataDao {
                         )
                 }
             }
+    }
+
+    fun addUserLocation(uid : String, location : String) {
+        db.collection(USERS_COLLECTION).document(uid).update("location", location)
     }
 
     fun getUserFriendList(uid : String): Task<QuerySnapshot> {

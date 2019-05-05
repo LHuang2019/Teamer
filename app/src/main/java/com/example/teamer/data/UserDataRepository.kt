@@ -14,8 +14,8 @@ class UserDataRepository {
         return userDataDao.getUser(uid)
     }
 
-    fun insertUser(user : UserData){
-        userDataDao.insertUser(user)
+    fun insertUser(user : UserData): Task<Void> {
+        return userDataDao.insertUser(user)
     }
 
     fun addProfileData(uid: String, username: String, platforms: List<Platform>, games: List<Game>) {
@@ -24,6 +24,10 @@ class UserDataRepository {
             platforms.map { platform -> platform.title },
             games.map { game -> game.title }
         )
+    }
+
+    fun addUserLocation(uid : String, location : String) {
+        userDataDao.addUserLocation(uid, location)
     }
 
     fun getUserFriendList(uid : String): Task<QuerySnapshot> {
