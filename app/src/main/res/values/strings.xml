@@ -27,6 +27,7 @@
     <string name="f_view_profile_game_list_tv">Game list</string>
     <string name="f_view_profile_edit_profile_btn">Edit Profile</string>
     <string name="f_view_profile_friendlist_btn">Friend list</string>
+    <string name="f_view_profile_location_tv">None</string>
 
     <!-- create profile fragment -->
     <string name="f_create_profile_title_tv">Create Profile</string>

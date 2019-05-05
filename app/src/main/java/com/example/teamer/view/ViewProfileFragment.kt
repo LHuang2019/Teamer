@@ -37,6 +37,8 @@ class ViewProfileFragment : Fragment() {
 
             val gameStr = userData.games.joinToString { game -> game }
             viewF.findViewById<TextView>(R.id.f_view_profile_game_list_tv).text = gameStr
+
+            viewF.findViewById<TextView>(R.id.f_view_profile_location_tv).text = userData.location
         })
 
         viewF.findViewById<Button>(R.id.f_view_profile_edit_profile_btn).setOnClickListener {
