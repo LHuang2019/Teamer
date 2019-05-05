@@ -18,33 +18,57 @@ class UserDataDao {
          return db.collection(USERS_COLLECTION).document(uid).get()
     }
 
-    fun insertUser(user : UserData): Task<Void> {
-        return db.collection(USERS_COLLECTION).document(user.uid).set(user)
+    fun insertUser(user : UserData) {
+        db.collection(USERS_COLLECTION).document(user.uid).set(user)
     }
 
-    fun addProfileData(uid: String, username: String, platforms: List<String>, games: List<String>) {
-        db.collection(USERS_COLLECTION).document(uid).update(
-            "username", username,
-            "platforms", platforms,
-            "games", games
-        )
+    fun addProfileData(uid: String, username: String, platforms: List<String>, games: List<String>, locationIsPublic : Boolean, location : String) {
+        if (location == "") {
+            db.collection(USERS_COLLECTION).document(uid).update(
+                "username", username,
+                "platforms", platforms,
+                "games", games,
+                "locationIsPublic", locationIsPublic
+            )
 
-        getUserFriendList(uid)
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val friend = document.toObject(UserData::class.java)
-                    db.collection(USERS_COLLECTION).document(friend.uid).collection(FRIEND_LIST_COLLECTION)
-                        .document(uid).update(
-                            "username", username,
-                            "platforms", platforms,
-                            "games", games
-                        )
+            getUserFriendList(uid)
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val friend = document.toObject(UserData::class.java)
+                        db.collection(USERS_COLLECTION).document(friend.uid).collection(FRIEND_LIST_COLLECTION)
+                            .document(uid).update(
+                                "username", username,
+                                "platforms", platforms,
+                                "games", games,
+                                "locationIsPublic", locationIsPublic
+                            )
+                    }
                 }
-            }
-    }
+        }
+        else {
+            db.collection(USERS_COLLECTION).document(uid).update(
+                "username", username,
+                "platforms", platforms,
+                "games", games,
+                "location", location,
+                "locationIsPublic", locationIsPublic
+            )
 
-    fun addUserLocation(uid : String, location : String) {
-        db.collection(USERS_COLLECTION).document(uid).update("location", location)
+            getUserFriendList(uid)
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val friend = document.toObject(UserData::class.java)
+                        db.collection(USERS_COLLECTION).document(friend.uid).collection(FRIEND_LIST_COLLECTION)
+                            .document(uid).update(
+                                "username", username,
+                                "platforms", platforms,
+                                "games", games,
+                                "location", location,
+                                "locationIsPublic", locationIsPublic
+                            )
+                    }
+                }
+        }
     }
 
     fun getUserFriendList(uid : String): Task<QuerySnapshot> {

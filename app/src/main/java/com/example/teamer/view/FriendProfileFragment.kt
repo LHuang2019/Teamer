@@ -42,15 +42,21 @@ class FriendProfileFragment : Fragment() {
         val gameStr = userData?.games?.joinToString { game -> game }
         viewF.findViewById<TextView>(R.id.f_friend_profile_game_list_tv).text = gameStr
 
+        if (userData?.locationIsPublic!!) {
+            val locationTv : TextView = viewF.findViewById(R.id.f_friend_profile_loc_tv)
+            locationTv.text = userData.location
+            locationTv.visibility = View.VISIBLE
+        }
+
         viewF.findViewById<Button>(R.id.f_friend_profile_remove_btn).setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setTitle("Remove " + userData?.username)
-            dialogBuilder.setMessage("Are you sure to remove " + userData?.username + "?")
+            dialogBuilder.setTitle("Remove " + userData.username)
+            dialogBuilder.setMessage("Are you sure to remove " + userData.username + "?")
 
             dialogBuilder.setPositiveButton("YES"
             ) { _, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                    userData?.uid?.let { uid -> vm.removeFriend(uid) }
+                    userData.uid.let { uid -> vm.removeFriend(uid) }
                     Navigation.findNavController(viewF).navigate(
                         R.id.action_friendProfileFragment_to_friendListFragment
                     )

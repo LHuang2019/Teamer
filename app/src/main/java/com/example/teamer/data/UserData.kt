@@ -9,7 +9,8 @@ data class UserData(
     var platforms : List<String>,
     var games : List<String>,
     val location : String,
+    val locationIsPublic : Boolean,
     var tokenId : String
 ) : Serializable {
-    constructor() : this("", "", "", emptyList(), emptyList(), "", "")
+    constructor() : this("", "", "", emptyList(), emptyList(), "", false, "")
 }

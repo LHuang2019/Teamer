@@ -67,19 +67,40 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     fun addNewUser(user : FirebaseUser) {
         FirebaseInstanceId.getInstance().instanceId
             .addOnSuccessListener {
-                userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), "", it.token))
-                    .addOnSuccessListener {
-                        addLocation()
-                    }
+                userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), "", false, it.token))
             }
             .addOnFailureListener {
-                userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), "", ""))
+                userDataRepo.insertUser(UserData(user.uid, "", user.email!!, emptyList(), emptyList(), "", false, ""))
             }
 
     }
 
-    fun addProfileData(username: String, platforms: List<Platform>, games: List<Game>) {
-        userDataRepo.addProfileData(auth.currentUser!!.uid, username, platforms, games)
+    @SuppressLint("MissingPermission")
+    fun addProfileData(username: String, platforms: List<Platform>, games: List<Game>,
+                       locationPublic : Boolean, updateLocation : Boolean) {
+
+        if (updateLocation) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location : Location? ->
+                    location?.let {
+                        coroutineJob?.cancel()
+
+                        coroutineJob = CoroutineScope(Dispatchers.IO).launch {
+                            val addressDeferred = async {
+                                getAddress(location)
+                            }
+                            val address = addressDeferred.await()
+                            withContext(Dispatchers.Main) {
+                                userDataRepo.addProfileData(auth.currentUser!!.uid, username, platforms, games, locationPublic, address)
+                            }
+                        }
+
+                    }
+                }
+        }
+        else {
+            userDataRepo.addProfileData(auth.currentUser!!.uid, username, platforms, games, locationPublic, "")
+        }
     }
 
     fun updateDiscoverProfilesData() : LiveData<List<UserData>> {
@@ -120,7 +141,6 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
     }
 
     fun getCurrentUserPendingRequests() : LiveData<List<FriendRequest>> {
-
         userDataRepo.getFriendRequests(auth.currentUser!!.uid)
             .addOnSuccessListener { query ->
                 val currentPendingRequests = ArrayList<FriendRequest>()
@@ -169,27 +189,6 @@ class TeamerVM(application : Application) : AndroidViewModel(application) {
         friendList = MutableLiveData()
         pendingRequestsList = MutableLiveData()
         discoverProfileData = MutableLiveData()
-    }
-
-    @SuppressLint("MissingPermission")
-    fun addLocation() {
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
-                location?.let {
-                    coroutineJob?.cancel()
-
-                    coroutineJob = CoroutineScope(Dispatchers.IO).launch {
-                        val addressDeferred = async {
-                            getAddress(location)
-                        }
-                        val address = addressDeferred.await()
-                        withContext(Dispatchers.Main) {
-                            userDataRepo.addUserLocation(auth.currentUser!!.uid, address)
-                        }
-                    }
-
-                }
-            }
     }
 
     private fun getAddress(location : Location) : String {
