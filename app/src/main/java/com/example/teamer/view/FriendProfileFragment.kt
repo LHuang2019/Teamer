@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.teamer.R
@@ -65,6 +66,12 @@ class FriendProfileFragment : Fragment() {
             dialogBuilder.setNeutralButton("CANCEL") { _, _ -> }
 
             dialogBuilder.create().show()
+        }
+
+        viewF.findViewById<Button>(R.id.f_friend_profile_chat_btn).setOnClickListener {
+            Navigation.findNavController(viewF).navigate(
+                R.id.action_friendProfileFragment_to_messagingFragment, bundleOf("uid" to userData.uid, "username" to userData.username)
+            )
         }
 
         return viewF

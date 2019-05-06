@@ -38,7 +38,7 @@
     <string name="f_create_profile_done_btn">Done</string>
     <string name="f_create_profile_location_tv">Location</string>
     <string name="f_create_profile_location_cb">Show to public</string>
-    <string name="f_create_profile_placeholder_tv"> </string>
+    <string name="f_create_profile_placeholder_tv"></string>
     <string name="f_create_profile_update_loc_cb">Update current location</string>
 
     <!-- friend list fragment -->
@@ -78,4 +78,7 @@
     <string name="game_csgo">CS:GO</string>
     <string name="game_apex_legends">Apex Legends</string>
     <string name="game_rocket_league">Rocket League</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

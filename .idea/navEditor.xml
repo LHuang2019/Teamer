@@ -57,12 +57,86 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_friendListFragment_to_friendProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_friendListFragment_to_friendRequestResponseFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_friendListFragment_to_viewProfileFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_friendListFragment_to_welcomeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="friendProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="340" />
+                            <option name="y" value="-73" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_friendProfileFragment_to_friendListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_friendProfileFragment_to_messagingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="friendRequestResponseFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="140" />
+                            <option name="y" value="-85" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_friendRequestResponseFragment_to_friendListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="messagingFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="609" />
+                            <option name="y" value="-179" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -98,8 +172,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="345" />
-                            <option name="y" value="-76" />
+                            <option name="x" value="620" />
+                            <option name="y" value="140" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -119,8 +193,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="631" />
-                            <option name="y" value="16" />
+                            <option name="x" value="795" />
+                            <option name="y" value="34" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -145,12 +219,17 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-54" />
-                            <option name="y" value="-83" />
+                            <option name="x" value="-88" />
+                            <option name="y" value="-104" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_welcomeFragment_to_friendListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_welcomeFragment_to_signInFragment">
                               <value>
                                 <LayoutPositions />

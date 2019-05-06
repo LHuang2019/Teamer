@@ -57,5 +57,9 @@
               android:label="fragment_friend_profile" tools:layout="@layout/fragment_friend_profile">
         <action android:id="@+id/action_friendProfileFragment_to_friendListFragment"
                 app:destination="@id/friendListFragment"/>
+        <action android:id="@+id/action_friendProfileFragment_to_messagingFragment"
+                app:destination="@id/messagingFragment"/>
     </fragment>
+    <fragment android:id="@+id/messagingFragment" android:name="com.example.teamer.view.MessagingFragment"
+              android:label="fragment_messaging" tools:layout="@layout/fragment_messaging"/>
 </navigation>
