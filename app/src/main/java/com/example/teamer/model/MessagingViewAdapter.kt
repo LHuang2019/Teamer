@@ -16,13 +16,15 @@ class MessagingViewAdapter internal constructor(context : Context, val currentUs
     RecyclerView.Adapter<MessagingViewAdapter.MessagingViewHolder>() {
 
     private val inflater : LayoutInflater = LayoutInflater.from(context)
-    private var messages = emptyList<MessageData>()
+    private var messages: MutableList<MessageData> = mutableListOf()
 
     inner class MessagingViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(message : MessageData) {
             itemView.findViewById<TextView>(R.id.message_tv).text = message.messageText
             if (message.sender_uid == currentUserUID) {
                 itemView.findViewById<TextView>(R.id.message_tv).setGravity(Gravity.RIGHT);
+            } else {
+                itemView.findViewById<TextView>(R.id.message_tv).setGravity(Gravity.LEFT);
             }
         }
     }
@@ -36,8 +38,13 @@ class MessagingViewAdapter internal constructor(context : Context, val currentUs
         holder.bindItem(messages[position])
     }
 
-    internal fun setMessages(messages : List<MessageData>) {
+    internal fun setMessages(messages : MutableList<MessageData>) {
         this.messages = messages
+        notifyDataSetChanged()
+    }
+
+    internal fun addMessage(message : MessageData) {
+        this.messages.add(message)
         notifyDataSetChanged()
     }
 

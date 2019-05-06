@@ -2,11 +2,14 @@ package com.example.teamer.view
 
 
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -60,39 +63,10 @@ class MessagingFragment : Fragment() {
 
         val messages: MutableList<MessageData> = mutableListOf()
 
-        // check for messages sent by the current user
-        DB_message_ref.whereEqualTo("sender_uid", vm.getCurrentUserData().value?.uid)
-        .get()
-        .addOnSuccessListener { documents ->
-            for (document in documents) {
 
-                val data = document.data
-
-                // skip the irrelevant messages to this conversation
-                if (data.getValue("recipient_uid").toString() != arguments?.getString("uid")) {
-                    continue
-                }
-
-                val m = MessageData(data.getValue("sender_uid").toString(),
-                    data.getValue("recipient_uid").toString(),
-                    data.getValue("messageText").toString(),
-                    data.getValue("timestamp") as Long
-                )
-
-                messages.add(m)
-            }
-            if (firstListenerCompleted) {
-                viewAdapter.setMessages(messages)
-            }
-
-            firstListenerCompleted = true
-        }
-        .addOnFailureListener { exception ->
-            Log.w("Error", "Error getting documents: ", exception)
-        }
-
-        // check for messages going to the current user
-        DB_message_ref.whereEqualTo("recipient_uid", vm.getCurrentUserData().value?.uid)
+        fun updateMessages() {
+            // check for messages sent by the current user
+            DB_message_ref.whereEqualTo("sender_uid", vm.getCurrentUserData().value?.uid)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
@@ -100,7 +74,7 @@ class MessagingFragment : Fragment() {
                     val data = document.data
 
                     // skip the irrelevant messages to this conversation
-                    if (data.getValue("sender_uid").toString() != arguments?.getString("uid")) {
+                    if (data.getValue("recipient_uid").toString() != arguments?.getString("uid")) {
                         continue
                     }
 
@@ -113,6 +87,9 @@ class MessagingFragment : Fragment() {
                     messages.add(m)
                 }
                 if (firstListenerCompleted) {
+                    messages.sortBy{
+                        it.timestamp
+                    }
                     viewAdapter.setMessages(messages)
                 }
 
@@ -122,6 +99,70 @@ class MessagingFragment : Fragment() {
                 Log.w("Error", "Error getting documents: ", exception)
             }
 
+            // check for messages going to the current user
+            DB_message_ref.whereEqualTo("recipient_uid", vm.getCurrentUserData().value?.uid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+
+                        val data = document.data
+
+                        // skip the irrelevant messages to this conversation
+                        if (data.getValue("sender_uid").toString() != arguments?.getString("uid")) {
+                            continue
+                        }
+
+                        val m = MessageData(data.getValue("sender_uid").toString(),
+                            data.getValue("recipient_uid").toString(),
+                            data.getValue("messageText").toString(),
+                            data.getValue("timestamp") as Long
+                        )
+
+                        messages.add(m)
+                    }
+                    if (firstListenerCompleted) {
+                        messages.sortBy{
+                            it.timestamp
+                        }
+                        viewAdapter.setMessages(messages)
+                    }
+
+                    firstListenerCompleted = true
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("Error", "Error getting documents: ", exception)
+                }
+        }
+
+        viewF.findViewById<Button>(R.id.send_btn).setOnClickListener{
+
+            val editText = viewF.findViewById<EditText>(R.id.chat_edittext)
+
+            val message = MessageData(
+                vm.getCurrentUserData().value?.uid!!,
+                arguments?.getString("uid")!!,
+                editText.text.toString(),
+                System.currentTimeMillis()
+            )
+
+            if (message.messageText.trim() != "") {
+                viewAdapter.addMessage(message)
+                editText.text.clear()
+
+                val messageHash = HashMap<String, Any>()
+                messageHash["sender_uid"] = message.sender_uid
+                messageHash["recipient_uid"] = message.recipient_uid
+                messageHash["messageText"] = message.messageText
+                messageHash["timestamp"] = message.timestamp
+
+                DB_message_ref.add(messageHash)
+            }
+        }
+
+        DB_message_ref.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            messages.clear()
+            updateMessages()
+        }
 
         return viewF
     }
