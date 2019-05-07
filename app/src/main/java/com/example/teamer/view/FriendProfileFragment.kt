@@ -70,7 +70,8 @@ class FriendProfileFragment : Fragment() {
 
         viewF.findViewById<Button>(R.id.f_friend_profile_chat_btn).setOnClickListener {
             Navigation.findNavController(viewF).navigate(
-                R.id.action_friendProfileFragment_to_messagingFragment, bundleOf("uid" to userData.uid, "username" to userData.username)
+                R.id.action_friendProfileFragment_to_messagingFragment, bundleOf("uid" to userData.uid,
+                    "username" to userData.username, "token" to userData.tokenId)
             )
         }
 

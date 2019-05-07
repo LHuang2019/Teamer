@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teamer.MainActivity
 
 import com.example.teamer.R
-import com.example.teamer.data.MessageData
+import com.example.teamer.data.*
 import com.example.teamer.model.FriendListViewAdapter
 import com.example.teamer.model.MessagingViewAdapter
 import com.example.teamer.model.PendingRequestListViewAdapter
@@ -134,8 +134,9 @@ class MessagingFragment : Fragment() {
                 }
         }
 
-        viewF.findViewById<Button>(R.id.send_btn).setOnClickListener{
 
+        // send button
+        viewF.findViewById<Button>(R.id.send_btn).setOnClickListener{
             val editText = viewF.findViewById<EditText>(R.id.chat_edittext)
 
             val message = MessageData(
@@ -156,6 +157,22 @@ class MessagingFragment : Fragment() {
                 messageHash["timestamp"] = message.timestamp
 
                 DB_message_ref.add(messageHash)
+
+                fun addPendingMessage(recipientUid : String, recipientToken : String, sender : UserData) {
+                    db.collection("users")
+                        .document(recipientUid).collection("pending_messages").whereEqualTo("sender.uid", sender.uid)
+                        .get().addOnSuccessListener {
+                            if (it.isEmpty) {
+                                val ref = db.collection("users").document(recipientUid)
+                                    .collection("pending_messages").document()
+                                val messageNotif = MessageNotification(ref.id, sender, recipientUid, recipientToken)
+                                ref.set(messageNotif)
+                            }
+                        }
+                }
+
+                addPendingMessage(message.recipient_uid, arguments?.getString("token")!!, vm?.getCurrentUserData().value!!)
+
             }
         }
 
