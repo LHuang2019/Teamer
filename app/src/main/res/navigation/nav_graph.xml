@@ -9,23 +9,33 @@
         <action android:id="@+id/action_welcomeFragment_to_signUpFragment" app:destination="@id/signUpFragment"/>
         <action android:id="@+id/action_welcomeFragment_to_signInFragment" app:destination="@id/signInFragment"/>
         <action android:id="@+id/action_welcomeFragment_to_friendListFragment"
-                app:destination="@id/friendListFragment"/>
+                app:destination="@id/friendListFragment"
+                app:popUpTo="@+id/friendListFragment"
+                app:popUpToInclusive="true"/>
     </fragment>
     <fragment android:id="@+id/signUpFragment" android:name="com.example.teamer.view.SignUpFragment"
               android:label="fragment_sign_up" tools:layout="@layout/fragment_sign_up">
         <action android:id="@+id/action_signUpFragment_to_createProfileFragment"
-                app:destination="@id/createProfileFragment"/>
+                app:destination="@id/createProfileFragment"
+                app:popUpTo="@+id/createProfileFragment"
+                app:popUpToInclusive="true"/>
     </fragment>
     <fragment android:id="@+id/signInFragment" android:name="com.example.teamer.view.SignInFragment"
               android:label="fragment_sign_in" tools:layout="@layout/fragment_sign_in">
         <action android:id="@+id/action_signInFragment_to_createProfileFragment"
-                app:destination="@id/createProfileFragment"/>
-        <action android:id="@+id/action_signInFragment_to_friendListFragment" app:destination="@id/friendListFragment"/>
+                app:destination="@id/createProfileFragment"
+                app:popUpTo="@+id/createProfileFragment"
+                app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_signInFragment_to_friendListFragment"
+                app:destination="@id/friendListFragment"
+                app:popUpTo="@+id/friendListFragment"
+                app:popUpToInclusive="true"/>
     </fragment>
     <fragment android:id="@+id/createProfileFragment" android:name="com.example.teamer.view.CreateProfileFragment"
               android:label="fragment_create_profile" tools:layout="@layout/fragment_create_profile">
         <action android:id="@+id/action_createProfileFragment_to_viewProfileFragment"
-                app:destination="@id/viewProfileFragment"/>
+                app:destination="@id/viewProfileFragment"
+                app:popUpTo="@+id/viewProfileFragment"/>
     </fragment>
     <fragment android:id="@+id/viewProfileFragment" android:name="com.example.teamer.view.ViewProfileFragment"
               android:label="fragment_view_profile" tools:layout="@layout/fragment_view_profile">
@@ -39,7 +49,9 @@
         <action android:id="@+id/action_friendListFragment_to_viewProfileFragment"
                 app:destination="@id/viewProfileFragment"/>
         <action android:id="@+id/action_friendListFragment_to_discoverFragment" app:destination="@id/discoverFragment"/>
-        <action android:id="@+id/action_friendListFragment_to_welcomeFragment" app:destination="@id/welcomeFragment"/>
+        <action android:id="@+id/action_friendListFragment_to_welcomeFragment" app:destination="@id/welcomeFragment"
+                app:popUpTo="@+id/welcomeFragment"
+                app:popUpToInclusive="true"/>
         <action android:id="@+id/action_friendListFragment_to_friendRequestResponseFragment"
                 app:destination="@id/friendRequestResponseFragment"/>
         <action android:id="@+id/action_friendListFragment_to_friendProfileFragment"
