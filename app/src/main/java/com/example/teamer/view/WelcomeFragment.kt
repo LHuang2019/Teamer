@@ -2,7 +2,6 @@ package com.example.teamer.view
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,13 @@ import com.example.teamer.R
 import com.example.teamer.data.UserLogin
 import com.example.teamer.model.TeamerVM
 
-
 class WelcomeFragment : Fragment() {
 
     private lateinit var vm : TeamerVM
 
+    private lateinit var signInBtn : Button
+    private lateinit var switchUserBtn : Button
+    private lateinit var signUpBtn : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,38 +30,50 @@ class WelcomeFragment : Fragment() {
         vm = activity.run {
             ViewModelProviders.of(this!!).get(TeamerVM::class.java)
         }
+
         val viewF : View = inflater.inflate(R.layout.fragment_welcome, container, false)
+
+        signInBtn = viewF.findViewById(R.id.f_welcome_sign_in_btn)
+        signUpBtn = viewF.findViewById(R.id.f_welcome_sign_up_btn)
+        switchUserBtn = viewF.findViewById(R.id.f_welcome_switch_user_btn)
+
+        signUpBtn.setOnClickListener {
+            Navigation.findNavController(viewF).navigate(R.id.action_welcomeFragment_to_signUpFragment)
+        }
 
         val userLogin : UserLogin? = vm.getUserLogin()
 
         if (userLogin != null) {
-            val auth = vm.getAuth()
+            val switchUserBtn : Button = viewF.findViewById(R.id.f_welcome_switch_user_btn)
+            switchUserBtn.visibility = View.VISIBLE
 
-            auth.signInWithEmailAndPassword(userLogin.email, userLogin.password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        vm.getCurrentUserData().observe(this@WelcomeFragment, Observer {
-                            Log.d("hi2", Navigation.findNavController(viewF).currentDestination?.label.toString())
-                            Navigation.findNavController(viewF).navigate(
-                                R.id.action_welcomeFragment_to_friendListFragment
-                            )
-                        })
-                    }
-                }
-        }
-        else {
-            val signInBtn: Button = viewF.findViewById(R.id.f_welcome_sign_in_btn)
-            val signUpBtn: Button = viewF.findViewById(R.id.f_welcome_sign_up_btn)
-
-            signInBtn.visibility = View.VISIBLE
-            signUpBtn.visibility = View.VISIBLE
-
-            signInBtn.setOnClickListener {
+            switchUserBtn.setOnClickListener {
+                vm.logout()
                 Navigation.findNavController(viewF).navigate(R.id.action_welcomeFragment_to_signInFragment)
             }
 
-            signUpBtn.setOnClickListener {
-                Navigation.findNavController(viewF).navigate(R.id.action_welcomeFragment_to_signUpFragment)
+            vm.getCurrentUserData().observe(this@WelcomeFragment, Observer {
+                signInBtn.text = "Sign in to " + it.username
+            })
+
+            signInBtn.setOnClickListener {
+                val auth = vm.getAuth()
+
+                auth.signInWithEmailAndPassword(userLogin.email, userLogin.password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            vm.getCurrentUserData().observe(this@WelcomeFragment, Observer {
+                                Navigation.findNavController(viewF).navigate(
+                                    R.id.action_welcomeFragment_to_friendListFragment
+                                )
+                            })
+                        }
+                    }
+            }
+        }
+        else {
+            signInBtn.setOnClickListener {
+                Navigation.findNavController(viewF).navigate(R.id.action_welcomeFragment_to_signInFragment)
             }
         }
 

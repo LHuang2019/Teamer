@@ -4,6 +4,7 @@
     <!-- welcome fragment -->
     <string name="f_welcome_title_tv">Teamer</string>
     <string name="f_welcome_sign_in_btn">Sign In</string>
+    <string name="f_welcome_switch_user_btn">Switch User</string>
     <string name="f_welcome_sign_up_btn">Sign Up</string>
 
     <!-- sign in fragment -->
@@ -74,11 +75,12 @@
     <string name="gaming_platform_xboxone">Xbox One</string>
     <string name="gaming_platform_switch">Nintendo Switch</string>
 
+    <string name="send_btn">Send</string>
+
+    <string name="placeholder">""</string>
+
     <!-- supported games -->
     <string name="game_csgo">CS:GO</string>
     <string name="game_apex_legends">Apex Legends</string>
     <string name="game_rocket_league">Rocket League</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
