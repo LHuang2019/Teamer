@@ -9,6 +9,7 @@ import android.os.Message
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.teamer.MainActivity
 import com.example.teamer.R
 import com.example.teamer.data.FirestoreDatabase
@@ -54,7 +55,6 @@ class FriendRequestMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage : RemoteMessage?) {
         if (remoteMessage?.data != null) {
-            Log.d("hi", "received")
             showNotification(remoteMessage.data)
         }
     }
@@ -110,7 +110,7 @@ class FriendRequestMessagingService : FirebaseMessagingService() {
                                 PendingIntent.FLAG_ONE_SHOT)
 
                             val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-                                .setSmallIcon(R.drawable.friend_notif_icon)
+                                .setSmallIcon(R.drawable.message_notif_icon)
                                 .setContentTitle(pendingMessage?.sender?.username + " has sent you a message.")
                                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                                 .setContentIntent(resultPendingIntent)
@@ -119,6 +119,8 @@ class FriendRequestMessagingService : FirebaseMessagingService() {
                             with(NotificationManagerCompat.from(applicationContext)) {
                                 notify(notificationId, builder.build())
                             }
+
+                            document.reference.delete()
 
                             notificationId++
                         }

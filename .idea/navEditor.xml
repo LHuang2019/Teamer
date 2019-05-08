@@ -230,6 +230,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_welcomeFragment_to_messagingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_welcomeFragment_to_signInFragment">
                               <value>
                                 <LayoutPositions />
