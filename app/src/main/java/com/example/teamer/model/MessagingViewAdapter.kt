@@ -5,7 +5,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +22,23 @@ class MessagingViewAdapter internal constructor(context : Context, val currentUs
 
     inner class MessagingViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(message : MessageData) {
-            itemView.findViewById<TextView>(R.id.message_tv).text = message.messageText
+            val textView = itemView.findViewById<TextView>(R.id.message_tv)
+            textView.text = message.messageText
+
+            val params = textView.layoutParams as LinearLayout.LayoutParams
+
             if (message.sender_uid == currentUserUID) {
-                itemView.findViewById<TextView>(R.id.message_tv).setGravity(Gravity.RIGHT);
+                textView.gravity = Gravity.RIGHT
+                params.gravity = Gravity.RIGHT
+                textView.setBackgroundResource(R.drawable.message_border)
+
             } else {
-                itemView.findViewById<TextView>(R.id.message_tv).setGravity(Gravity.LEFT);
+                textView.gravity = Gravity.LEFT
+                params.gravity = Gravity.LEFT
+                textView.setBackgroundResource(R.drawable.message_border2)
             }
+
+            textView.requestLayout()
         }
     }
 
