@@ -33,6 +33,11 @@ class MessagingFragment : Fragment() {
     private lateinit var viewF : View
     private lateinit var recyclerView : RecyclerView
 
+    companion object {
+        private const val USERS = "users"
+        private const val PENDING_MESSAGES = "pending_messages"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -159,12 +164,12 @@ class MessagingFragment : Fragment() {
                 DB_message_ref.add(messageHash)
 
                 fun addPendingMessage(recipientUid : String, recipientToken : String, sender : UserData) {
-                    db.collection("users")
-                        .document(recipientUid).collection("pending_messages").whereEqualTo("sender.uid", sender.uid)
+                    db.collection(USERS)
+                        .document(recipientUid).collection(PENDING_MESSAGES).whereEqualTo("sender.uid", sender.uid)
                         .get().addOnSuccessListener {
                             if (it.isEmpty) {
-                                val ref = db.collection("users").document(recipientUid)
-                                    .collection("pending_messages").document()
+                                val ref = db.collection(USERS).document(recipientUid)
+                                    .collection(PENDING_MESSAGES).document()
                                 val messageNotif = MessageNotification(ref.id, sender, recipientUid, recipientToken)
                                 ref.set(messageNotif)
                             }
